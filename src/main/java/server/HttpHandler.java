@@ -8,14 +8,12 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
 import org.reflections.Reflections;
+import server.anno.NettyRequestBody;
 import server.anno.NettyRequestUri;
 import server.anno.NettyRestController;
-import server.database.ConnUtils;
 
 import java.lang.reflect.Method;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.lang.reflect.Parameter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -46,12 +44,9 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object>{
                         perfex = perfex + controller.getAnnotation(NettyRestController.class).value();
                     }
                     Method[] methods = controller.getDeclaredMethods();
-                    Object o = paramFilter(full);
-                    Map<String, String> params = null;
-                    if(o instanceof Map){
-                        params = (Map<String, String>) o;
-                    }else{
-                        ctx.writeAndFlush(o);
+                    Object bindParams = paramFilter(full);
+                    if(bindParams instanceof FullHttpResponse){
+                        ctx.writeAndFlush(bindParams);
                     }
                     for (Method method : methods) {
                         boolean annotationPresent = method.isAnnotationPresent(NettyRequestUri.class);
@@ -62,8 +57,18 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object>{
                                 //请求的方法是否支持
                                 for (int i = 0; i < length; i++) {
                                     if(full.method().name().toUpperCase()==annotation.method()[i].name()){
+                                        Parameter[] parameters = method.getParameters();
+                                        //参数个数
+                                        for (int i2 = 0; i2 < parameters.length; i2++) {
+                                            //有注解的
+                                            Parameter parameter = parameters[i2];
+                                            if(parameter.isAnnotationPresent(NettyRequestBody.class)){
+                                                String s = JSONObject.toJSONString(bindParams);
+                                                bindParams = JSONObject.parseObject(s, parameter.getType());
+                                            }
+                                        }
                                         method.setAccessible(true);
-                                        String invoke = (String) method.invoke(method.getDeclaringClass().newInstance(),params);
+                                        Object invoke =  method.invoke(method.getDeclaringClass().newInstance(),bindParams);
                                         FullHttpResponse fullHttpResponse = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, Unpooled.wrappedBuffer(
                                                 JSON.toJSONString(invoke).getBytes("utf-8")
                                         ));
