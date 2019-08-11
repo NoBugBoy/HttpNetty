@@ -1,0 +1,22 @@
+package client;
+
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
+
+public class MessageHandler  extends SimpleChannelInboundHandler<String> {
+    @Override
+    protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
+        //接到的消息msg
+        String ss="android_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";
+
+        System.out.println(msg);
+        ctx.writeAndFlush(ss);
+    }
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable e) throws Exception {
+        Channel channel = ctx.channel();
+        System.out.println("[" + channel.remoteAddress() + "]");
+        ctx.close().sync();
+    }
+}
