@@ -9,4 +9,5 @@ public class Constance {
     public static final String DB_NAME = "db.userName";
     public static final String DB_PASSWORD = "db.password";
     public static final String DB_DRIVER = "db.driverClass";
+    public static final String SERVER_PORT = "server.port";
 }

@@ -1,0 +1,1702 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="server.database.mapper.FuserMapper" >
+  <resultMap id="BaseResultMap" type="server.database.entity.Fuser" >
+    <id column="fId" property="fid" jdbcType="INTEGER" />
+    <result column="floginName" property="floginname" jdbcType="VARCHAR" />
+    <result column="fLoginPassword" property="floginpassword" jdbcType="VARCHAR" />
+    <result column="fTradePassword" property="ftradepassword" jdbcType="VARCHAR" />
+    <result column="fNickName" property="fnickname" jdbcType="VARCHAR" />
+    <result column="fRealName" property="frealname" jdbcType="VARCHAR" />
+    <result column="fTelephone" property="ftelephone" jdbcType="VARCHAR" />
+    <result column="fEmail" property="femail" jdbcType="VARCHAR" />
+    <result column="fIdentityNo" property="fidentityno" jdbcType="VARCHAR" />
+    <result column="fRegisterTime" property="fregistertime" jdbcType="TIMESTAMP" />
+    <result column="fLastLoginTime" property="flastlogintime" jdbcType="TIMESTAMP" />
+    <result column="fGoogleAuthenticator" property="fgoogleauthenticator" jdbcType="VARCHAR" />
+    <result column="fgoogleurl" property="fgoogleurl" jdbcType="VARCHAR" />
+    <result column="fMobilMessageCode" property="fmobilmessagecode" jdbcType="VARCHAR" />
+    <result column="fStatus" property="fstatus" jdbcType="INTEGER" />
+    <result column="fIsTelValidate" property="fistelvalidate" jdbcType="BIT" />
+    <result column="fIsMailValidate" property="fismailvalidate" jdbcType="BIT" />
+    <result column="fGoogleValidate" property="fgooglevalidate" jdbcType="BIT" />
+    <result column="fopenTelValidate" property="fopentelvalidate" jdbcType="BIT" />
+    <result column="fopenGoogleValidate" property="fopengooglevalidate" jdbcType="BIT" />
+    <result column="fopenSecondValidate" property="fopensecondvalidate" jdbcType="BIT" />
+    <result column="fgoogleBind" property="fgooglebind" jdbcType="BIT" />
+    <result column="fpostRealValidate" property="fpostrealvalidate" jdbcType="BIT" />
+    <result column="fhasRealValidate" property="fhasrealvalidate" jdbcType="BIT" />
+    <result column="fpostRealValidateTime" property="fpostrealvalidatetime" jdbcType="TIMESTAMP" />
+    <result column="fhasRealValidateTime" property="fhasrealvalidatetime" jdbcType="TIMESTAMP" />
+    <result column="fidentityType" property="fidentitytype" jdbcType="INTEGER" />
+    <result column="fisTelephoneBind" property="fistelephonebind" jdbcType="BIT" />
+    <result column="flastUpdateTime" property="flastupdatetime" jdbcType="TIMESTAMP" />
+    <result column="fareaCode" property="fareacode" jdbcType="VARCHAR" />
+    <result column="fscoreid" property="fscoreid" jdbcType="INTEGER" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="fIdentityPath" property="fidentitypath" jdbcType="VARCHAR" />
+    <result column="fapi" property="fapi" jdbcType="INTEGER" />
+    <result column="fIdentityPath2" property="fidentitypath2" jdbcType="VARCHAR" />
+    <result column="fInvalidateIntroCount" property="finvalidateintrocount" jdbcType="INTEGER" />
+    <result column="flastUpdateZhongdouTime" property="flastupdatezhongdoutime" jdbcType="TIMESTAMP" />
+    <result column="fIsStartZhongDou" property="fisstartzhongdou" jdbcType="BIT" />
+    <result column="qqlogin" property="qqlogin" jdbcType="VARCHAR" />
+    <result column="faddress" property="faddress" jdbcType="VARCHAR" />
+    <result column="fregType" property="fregtype" jdbcType="INTEGER" />
+    <result column="fgrade" property="fgrade" jdbcType="INTEGER" />
+    <result column="fuserno" property="fuserno" jdbcType="VARCHAR" />
+    <result column="fbalancecny" property="fbalancecny" jdbcType="DECIMAL" />
+    <result column="fbalancetmc" property="fbalancetmc" jdbcType="DECIMAL" />
+    <result column="fuserIntrolNo" property="fuserintrolno" jdbcType="VARCHAR" />
+    <result column="fisValid" property="fisvalid" jdbcType="TINYINT" />
+    <result column="fistiger" property="fistiger" jdbcType="TINYINT" />
+    <result column="fregIp" property="fregip" jdbcType="VARCHAR" />
+    <result column="flastLoginIp" property="flastloginip" jdbcType="VARCHAR" />
+    <result column="fintrolUserNo" property="fintroluserno" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="fIdentityPath3" property="fidentitypath3" jdbcType="VARCHAR" />
+    <result column="fuserType" property="fusertype" jdbcType="INTEGER" />
+    <result column="fServiceTradeRate" property="fservicetraderate" jdbcType="VARCHAR" />
+    <result column="fServiceSubRate" property="fservicesubrate" jdbcType="VARCHAR" />
+    <result column="fProxyNumber" property="fproxynumber" jdbcType="VARCHAR" />
+    <result column="fProxyTradeRate" property="fproxytraderate" jdbcType="DECIMAL" />
+    <result column="fProxySubRate" property="fproxysubrate" jdbcType="DECIMAL" />
+    <result column="fischeck" property="fischeck" jdbcType="TINYINT" />
+    <result column="fsex" property="fsex" jdbcType="VARCHAR" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="fbirth" property="fbirth" jdbcType="DATE" />
+    <result column="fpostHighValidate" property="fposthighvalidate" jdbcType="TINYINT" />
+    <result column="fhasHighValidate" property="fhashighvalidate" jdbcType="TINYINT" />
+    <result column="fpostHighValidateTime" property="fposthighvalidatetime" jdbcType="TIMESTAMP" />
+    <result column="fhasHighValidateTime" property="fhashighvalidatetime" jdbcType="TIMESTAMP" />
+    <result column="famt" property="famt" jdbcType="DECIMAL" />
+    <result column="fIntroUser_id3" property="fintrouserId3" jdbcType="INTEGER" />
+    <result column="fIntroUser_id2" property="fintrouserId2" jdbcType="INTEGER" />
+    <result column="fpostImgValidate" property="fpostimgvalidate" jdbcType="TINYINT" />
+    <result column="fhasImgValidate" property="fhasimgvalidate" jdbcType="TINYINT" />
+    <result column="fpostImgValidateTime" property="fpostimgvalidatetime" jdbcType="TIMESTAMP" />
+    <result column="fhasImgValidateTime" property="fhasimgvalidatetime" jdbcType="TIMESTAMP" />
+    <result column="fhasVideoValidate" property="fhasvideovalidate" jdbcType="TINYINT" />
+    <result column="fhasVideoValidateTime" property="fhasvideovalidatetime" jdbcType="TIMESTAMP" />
+    <result column="fGoogleCheck" property="fgooglecheck" jdbcType="BIT" />
+    <result column="fIsMerchant" property="fismerchant" jdbcType="BIT" />
+    <result column="fBankPath" property="fbankpath" jdbcType="VARCHAR" />
+    <result column="fBankPath2" property="fbankpath2" jdbcType="VARCHAR" />
+    <result column="fBankPath3" property="fbankpath3" jdbcType="VARCHAR" />
+    <result column="authGrade" property="authgrade" jdbcType="INTEGER" />
+    <result column="fhasBankValidate" property="fhasbankvalidate" jdbcType="TINYINT" />
+    <result column="fpostBankValidate" property="fpostbankvalidate" jdbcType="TINYINT" />
+    <result column="faudit" property="faudit" jdbcType="INTEGER" />
+    <result column="fleaderId" property="fleaderid" jdbcType="INTEGER" />
+    <result column="fisversion" property="fisversion" jdbcType="BIT" />
+    <result column="fisleader" property="fisleader" jdbcType="BIT" />
+    <result column="fCanLoginTeamManager" property="fcanloginteammanager" jdbcType="BIT" />
+    <result column="folduid" property="folduid" jdbcType="VARCHAR" />
+    <result column="fIntroUser_id" property="fintrouserId" jdbcType="INTEGER" />
+    <result column="fcoaleaderId" property="fcoaleaderid" jdbcType="VARCHAR" />
+    <result column="fInsertData" property="finsertdata" jdbcType="INTEGER" />
+    <result column="fInsertpwd" property="finsertpwd" jdbcType="INTEGER" />
+    <result column="fisadvertise" property="fisadvertise" jdbcType="TINYINT" />
+    <result column="Layer_" property="layer" jdbcType="INTEGER" />
+    <result column="level_" property="level" jdbcType="INTEGER" />
+    <result column="fRewardedInviter" property="frewardedinviter" jdbcType="INTEGER" />
+    <result column="fisEarlyWarning" property="fisearlywarning" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fId, floginName, fLoginPassword, fTradePassword, fNickName, fRealName, fTelephone, 
+    fEmail, fIdentityNo, fRegisterTime, fLastLoginTime, fGoogleAuthenticator, fgoogleurl, 
+    fMobilMessageCode, fStatus, fIsTelValidate, fIsMailValidate, fGoogleValidate, fopenTelValidate, 
+    fopenGoogleValidate, fopenSecondValidate, fgoogleBind, fpostRealValidate, fhasRealValidate, 
+    fpostRealValidateTime, fhasRealValidateTime, fidentityType, fisTelephoneBind, flastUpdateTime, 
+    fareaCode, fscoreid, version, fIdentityPath, fapi, fIdentityPath2, fInvalidateIntroCount, 
+    flastUpdateZhongdouTime, fIsStartZhongDou, qqlogin, faddress, fregType, fgrade, fuserno, 
+    fbalancecny, fbalancetmc, fuserIntrolNo, fisValid, fistiger, fregIp, flastLoginIp, 
+    fintrolUserNo, salt, fIdentityPath3, fuserType, fServiceTradeRate, fServiceSubRate, 
+    fProxyNumber, fProxyTradeRate, fProxySubRate, fischeck, fsex, country, fbirth, fpostHighValidate, 
+    fhasHighValidate, fpostHighValidateTime, fhasHighValidateTime, famt, fIntroUser_id3, 
+    fIntroUser_id2, fpostImgValidate, fhasImgValidate, fpostImgValidateTime, fhasImgValidateTime, 
+    fhasVideoValidate, fhasVideoValidateTime, fGoogleCheck, fIsMerchant, fBankPath, fBankPath2, 
+    fBankPath3, authGrade, fhasBankValidate, fpostBankValidate, faudit, fleaderId, fisversion, 
+    fisleader, fCanLoginTeamManager, folduid, fIntroUser_id, fcoaleaderId, fInsertData, 
+    fInsertpwd, fisadvertise, Layer_, level_, fRewardedInviter, fisEarlyWarning
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="server.database.entity.FuserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fuser
+    where fId = #{fid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fuser
+    where fId = #{fid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="server.database.entity.FuserExample" >
+    delete from fuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="server.database.entity.Fuser" >
+    insert into fuser (fId, floginName, fLoginPassword, 
+      fTradePassword, fNickName, fRealName, 
+      fTelephone, fEmail, fIdentityNo, 
+      fRegisterTime, fLastLoginTime, fGoogleAuthenticator, 
+      fgoogleurl, fMobilMessageCode, fStatus, 
+      fIsTelValidate, fIsMailValidate, fGoogleValidate, 
+      fopenTelValidate, fopenGoogleValidate, fopenSecondValidate, 
+      fgoogleBind, fpostRealValidate, fhasRealValidate, 
+      fpostRealValidateTime, fhasRealValidateTime, 
+      fidentityType, fisTelephoneBind, flastUpdateTime, 
+      fareaCode, fscoreid, version, 
+      fIdentityPath, fapi, fIdentityPath2, 
+      fInvalidateIntroCount, flastUpdateZhongdouTime, 
+      fIsStartZhongDou, qqlogin, faddress, 
+      fregType, fgrade, fuserno, 
+      fbalancecny, fbalancetmc, fuserIntrolNo, 
+      fisValid, fistiger, fregIp, 
+      flastLoginIp, fintrolUserNo, salt, 
+      fIdentityPath3, fuserType, fServiceTradeRate, 
+      fServiceSubRate, fProxyNumber, fProxyTradeRate, 
+      fProxySubRate, fischeck, fsex, 
+      country, fbirth, fpostHighValidate, 
+      fhasHighValidate, fpostHighValidateTime, 
+      fhasHighValidateTime, famt, fIntroUser_id3, 
+      fIntroUser_id2, fpostImgValidate, fhasImgValidate, 
+      fpostImgValidateTime, fhasImgValidateTime, 
+      fhasVideoValidate, fhasVideoValidateTime, 
+      fGoogleCheck, fIsMerchant, fBankPath, 
+      fBankPath2, fBankPath3, authGrade, 
+      fhasBankValidate, fpostBankValidate, faudit, 
+      fleaderId, fisversion, fisleader, 
+      fCanLoginTeamManager, folduid, fIntroUser_id, 
+      fcoaleaderId, fInsertData, fInsertpwd, 
+      fisadvertise, Layer_, level_, 
+      fRewardedInviter, fisEarlyWarning)
+    values (#{fid,jdbcType=INTEGER}, #{floginname,jdbcType=VARCHAR}, #{floginpassword,jdbcType=VARCHAR}, 
+      #{ftradepassword,jdbcType=VARCHAR}, #{fnickname,jdbcType=VARCHAR}, #{frealname,jdbcType=VARCHAR}, 
+      #{ftelephone,jdbcType=VARCHAR}, #{femail,jdbcType=VARCHAR}, #{fidentityno,jdbcType=VARCHAR}, 
+      #{fregistertime,jdbcType=TIMESTAMP}, #{flastlogintime,jdbcType=TIMESTAMP}, #{fgoogleauthenticator,jdbcType=VARCHAR}, 
+      #{fgoogleurl,jdbcType=VARCHAR}, #{fmobilmessagecode,jdbcType=VARCHAR}, #{fstatus,jdbcType=INTEGER}, 
+      #{fistelvalidate,jdbcType=BIT}, #{fismailvalidate,jdbcType=BIT}, #{fgooglevalidate,jdbcType=BIT}, 
+      #{fopentelvalidate,jdbcType=BIT}, #{fopengooglevalidate,jdbcType=BIT}, #{fopensecondvalidate,jdbcType=BIT}, 
+      #{fgooglebind,jdbcType=BIT}, #{fpostrealvalidate,jdbcType=BIT}, #{fhasrealvalidate,jdbcType=BIT}, 
+      #{fpostrealvalidatetime,jdbcType=TIMESTAMP}, #{fhasrealvalidatetime,jdbcType=TIMESTAMP}, 
+      #{fidentitytype,jdbcType=INTEGER}, #{fistelephonebind,jdbcType=BIT}, #{flastupdatetime,jdbcType=TIMESTAMP}, 
+      #{fareacode,jdbcType=VARCHAR}, #{fscoreid,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}, 
+      #{fidentitypath,jdbcType=VARCHAR}, #{fapi,jdbcType=INTEGER}, #{fidentitypath2,jdbcType=VARCHAR}, 
+      #{finvalidateintrocount,jdbcType=INTEGER}, #{flastupdatezhongdoutime,jdbcType=TIMESTAMP}, 
+      #{fisstartzhongdou,jdbcType=BIT}, #{qqlogin,jdbcType=VARCHAR}, #{faddress,jdbcType=VARCHAR}, 
+      #{fregtype,jdbcType=INTEGER}, #{fgrade,jdbcType=INTEGER}, #{fuserno,jdbcType=VARCHAR}, 
+      #{fbalancecny,jdbcType=DECIMAL}, #{fbalancetmc,jdbcType=DECIMAL}, #{fuserintrolno,jdbcType=VARCHAR}, 
+      #{fisvalid,jdbcType=TINYINT}, #{fistiger,jdbcType=TINYINT}, #{fregip,jdbcType=VARCHAR}, 
+      #{flastloginip,jdbcType=VARCHAR}, #{fintroluserno,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, 
+      #{fidentitypath3,jdbcType=VARCHAR}, #{fusertype,jdbcType=INTEGER}, #{fservicetraderate,jdbcType=VARCHAR}, 
+      #{fservicesubrate,jdbcType=VARCHAR}, #{fproxynumber,jdbcType=VARCHAR}, #{fproxytraderate,jdbcType=DECIMAL}, 
+      #{fproxysubrate,jdbcType=DECIMAL}, #{fischeck,jdbcType=TINYINT}, #{fsex,jdbcType=VARCHAR}, 
+      #{country,jdbcType=VARCHAR}, #{fbirth,jdbcType=DATE}, #{fposthighvalidate,jdbcType=TINYINT}, 
+      #{fhashighvalidate,jdbcType=TINYINT}, #{fposthighvalidatetime,jdbcType=TIMESTAMP}, 
+      #{fhashighvalidatetime,jdbcType=TIMESTAMP}, #{famt,jdbcType=DECIMAL}, #{fintrouserId3,jdbcType=INTEGER}, 
+      #{fintrouserId2,jdbcType=INTEGER}, #{fpostimgvalidate,jdbcType=TINYINT}, #{fhasimgvalidate,jdbcType=TINYINT}, 
+      #{fpostimgvalidatetime,jdbcType=TIMESTAMP}, #{fhasimgvalidatetime,jdbcType=TIMESTAMP}, 
+      #{fhasvideovalidate,jdbcType=TINYINT}, #{fhasvideovalidatetime,jdbcType=TIMESTAMP}, 
+      #{fgooglecheck,jdbcType=BIT}, #{fismerchant,jdbcType=BIT}, #{fbankpath,jdbcType=VARCHAR}, 
+      #{fbankpath2,jdbcType=VARCHAR}, #{fbankpath3,jdbcType=VARCHAR}, #{authgrade,jdbcType=INTEGER}, 
+      #{fhasbankvalidate,jdbcType=TINYINT}, #{fpostbankvalidate,jdbcType=TINYINT}, #{faudit,jdbcType=INTEGER}, 
+      #{fleaderid,jdbcType=INTEGER}, #{fisversion,jdbcType=BIT}, #{fisleader,jdbcType=BIT}, 
+      #{fcanloginteammanager,jdbcType=BIT}, #{folduid,jdbcType=VARCHAR}, #{fintrouserId,jdbcType=INTEGER}, 
+      #{fcoaleaderid,jdbcType=VARCHAR}, #{finsertdata,jdbcType=INTEGER}, #{finsertpwd,jdbcType=INTEGER}, 
+      #{fisadvertise,jdbcType=TINYINT}, #{layer,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, 
+      #{frewardedinviter,jdbcType=INTEGER}, #{fisearlywarning,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="server.database.entity.Fuser" >
+    insert into fuser
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fId,
+      </if>
+      <if test="floginname != null" >
+        floginName,
+      </if>
+      <if test="floginpassword != null" >
+        fLoginPassword,
+      </if>
+      <if test="ftradepassword != null" >
+        fTradePassword,
+      </if>
+      <if test="fnickname != null" >
+        fNickName,
+      </if>
+      <if test="frealname != null" >
+        fRealName,
+      </if>
+      <if test="ftelephone != null" >
+        fTelephone,
+      </if>
+      <if test="femail != null" >
+        fEmail,
+      </if>
+      <if test="fidentityno != null" >
+        fIdentityNo,
+      </if>
+      <if test="fregistertime != null" >
+        fRegisterTime,
+      </if>
+      <if test="flastlogintime != null" >
+        fLastLoginTime,
+      </if>
+      <if test="fgoogleauthenticator != null" >
+        fGoogleAuthenticator,
+      </if>
+      <if test="fgoogleurl != null" >
+        fgoogleurl,
+      </if>
+      <if test="fmobilmessagecode != null" >
+        fMobilMessageCode,
+      </if>
+      <if test="fstatus != null" >
+        fStatus,
+      </if>
+      <if test="fistelvalidate != null" >
+        fIsTelValidate,
+      </if>
+      <if test="fismailvalidate != null" >
+        fIsMailValidate,
+      </if>
+      <if test="fgooglevalidate != null" >
+        fGoogleValidate,
+      </if>
+      <if test="fopentelvalidate != null" >
+        fopenTelValidate,
+      </if>
+      <if test="fopengooglevalidate != null" >
+        fopenGoogleValidate,
+      </if>
+      <if test="fopensecondvalidate != null" >
+        fopenSecondValidate,
+      </if>
+      <if test="fgooglebind != null" >
+        fgoogleBind,
+      </if>
+      <if test="fpostrealvalidate != null" >
+        fpostRealValidate,
+      </if>
+      <if test="fhasrealvalidate != null" >
+        fhasRealValidate,
+      </if>
+      <if test="fpostrealvalidatetime != null" >
+        fpostRealValidateTime,
+      </if>
+      <if test="fhasrealvalidatetime != null" >
+        fhasRealValidateTime,
+      </if>
+      <if test="fidentitytype != null" >
+        fidentityType,
+      </if>
+      <if test="fistelephonebind != null" >
+        fisTelephoneBind,
+      </if>
+      <if test="flastupdatetime != null" >
+        flastUpdateTime,
+      </if>
+      <if test="fareacode != null" >
+        fareaCode,
+      </if>
+      <if test="fscoreid != null" >
+        fscoreid,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="fidentitypath != null" >
+        fIdentityPath,
+      </if>
+      <if test="fapi != null" >
+        fapi,
+      </if>
+      <if test="fidentitypath2 != null" >
+        fIdentityPath2,
+      </if>
+      <if test="finvalidateintrocount != null" >
+        fInvalidateIntroCount,
+      </if>
+      <if test="flastupdatezhongdoutime != null" >
+        flastUpdateZhongdouTime,
+      </if>
+      <if test="fisstartzhongdou != null" >
+        fIsStartZhongDou,
+      </if>
+      <if test="qqlogin != null" >
+        qqlogin,
+      </if>
+      <if test="faddress != null" >
+        faddress,
+      </if>
+      <if test="fregtype != null" >
+        fregType,
+      </if>
+      <if test="fgrade != null" >
+        fgrade,
+      </if>
+      <if test="fuserno != null" >
+        fuserno,
+      </if>
+      <if test="fbalancecny != null" >
+        fbalancecny,
+      </if>
+      <if test="fbalancetmc != null" >
+        fbalancetmc,
+      </if>
+      <if test="fuserintrolno != null" >
+        fuserIntrolNo,
+      </if>
+      <if test="fisvalid != null" >
+        fisValid,
+      </if>
+      <if test="fistiger != null" >
+        fistiger,
+      </if>
+      <if test="fregip != null" >
+        fregIp,
+      </if>
+      <if test="flastloginip != null" >
+        flastLoginIp,
+      </if>
+      <if test="fintroluserno != null" >
+        fintrolUserNo,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
+      <if test="fidentitypath3 != null" >
+        fIdentityPath3,
+      </if>
+      <if test="fusertype != null" >
+        fuserType,
+      </if>
+      <if test="fservicetraderate != null" >
+        fServiceTradeRate,
+      </if>
+      <if test="fservicesubrate != null" >
+        fServiceSubRate,
+      </if>
+      <if test="fproxynumber != null" >
+        fProxyNumber,
+      </if>
+      <if test="fproxytraderate != null" >
+        fProxyTradeRate,
+      </if>
+      <if test="fproxysubrate != null" >
+        fProxySubRate,
+      </if>
+      <if test="fischeck != null" >
+        fischeck,
+      </if>
+      <if test="fsex != null" >
+        fsex,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="fbirth != null" >
+        fbirth,
+      </if>
+      <if test="fposthighvalidate != null" >
+        fpostHighValidate,
+      </if>
+      <if test="fhashighvalidate != null" >
+        fhasHighValidate,
+      </if>
+      <if test="fposthighvalidatetime != null" >
+        fpostHighValidateTime,
+      </if>
+      <if test="fhashighvalidatetime != null" >
+        fhasHighValidateTime,
+      </if>
+      <if test="famt != null" >
+        famt,
+      </if>
+      <if test="fintrouserId3 != null" >
+        fIntroUser_id3,
+      </if>
+      <if test="fintrouserId2 != null" >
+        fIntroUser_id2,
+      </if>
+      <if test="fpostimgvalidate != null" >
+        fpostImgValidate,
+      </if>
+      <if test="fhasimgvalidate != null" >
+        fhasImgValidate,
+      </if>
+      <if test="fpostimgvalidatetime != null" >
+        fpostImgValidateTime,
+      </if>
+      <if test="fhasimgvalidatetime != null" >
+        fhasImgValidateTime,
+      </if>
+      <if test="fhasvideovalidate != null" >
+        fhasVideoValidate,
+      </if>
+      <if test="fhasvideovalidatetime != null" >
+        fhasVideoValidateTime,
+      </if>
+      <if test="fgooglecheck != null" >
+        fGoogleCheck,
+      </if>
+      <if test="fismerchant != null" >
+        fIsMerchant,
+      </if>
+      <if test="fbankpath != null" >
+        fBankPath,
+      </if>
+      <if test="fbankpath2 != null" >
+        fBankPath2,
+      </if>
+      <if test="fbankpath3 != null" >
+        fBankPath3,
+      </if>
+      <if test="authgrade != null" >
+        authGrade,
+      </if>
+      <if test="fhasbankvalidate != null" >
+        fhasBankValidate,
+      </if>
+      <if test="fpostbankvalidate != null" >
+        fpostBankValidate,
+      </if>
+      <if test="faudit != null" >
+        faudit,
+      </if>
+      <if test="fleaderid != null" >
+        fleaderId,
+      </if>
+      <if test="fisversion != null" >
+        fisversion,
+      </if>
+      <if test="fisleader != null" >
+        fisleader,
+      </if>
+      <if test="fcanloginteammanager != null" >
+        fCanLoginTeamManager,
+      </if>
+      <if test="folduid != null" >
+        folduid,
+      </if>
+      <if test="fintrouserId != null" >
+        fIntroUser_id,
+      </if>
+      <if test="fcoaleaderid != null" >
+        fcoaleaderId,
+      </if>
+      <if test="finsertdata != null" >
+        fInsertData,
+      </if>
+      <if test="finsertpwd != null" >
+        fInsertpwd,
+      </if>
+      <if test="fisadvertise != null" >
+        fisadvertise,
+      </if>
+      <if test="layer != null" >
+        Layer_,
+      </if>
+      <if test="level != null" >
+        level_,
+      </if>
+      <if test="frewardedinviter != null" >
+        fRewardedInviter,
+      </if>
+      <if test="fisearlywarning != null" >
+        fisEarlyWarning,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="floginname != null" >
+        #{floginname,jdbcType=VARCHAR},
+      </if>
+      <if test="floginpassword != null" >
+        #{floginpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="ftradepassword != null" >
+        #{ftradepassword,jdbcType=VARCHAR},
+      </if>
+      <if test="fnickname != null" >
+        #{fnickname,jdbcType=VARCHAR},
+      </if>
+      <if test="frealname != null" >
+        #{frealname,jdbcType=VARCHAR},
+      </if>
+      <if test="ftelephone != null" >
+        #{ftelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="femail != null" >
+        #{femail,jdbcType=VARCHAR},
+      </if>
+      <if test="fidentityno != null" >
+        #{fidentityno,jdbcType=VARCHAR},
+      </if>
+      <if test="fregistertime != null" >
+        #{fregistertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flastlogintime != null" >
+        #{flastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fgoogleauthenticator != null" >
+        #{fgoogleauthenticator,jdbcType=VARCHAR},
+      </if>
+      <if test="fgoogleurl != null" >
+        #{fgoogleurl,jdbcType=VARCHAR},
+      </if>
+      <if test="fmobilmessagecode != null" >
+        #{fmobilmessagecode,jdbcType=VARCHAR},
+      </if>
+      <if test="fstatus != null" >
+        #{fstatus,jdbcType=INTEGER},
+      </if>
+      <if test="fistelvalidate != null" >
+        #{fistelvalidate,jdbcType=BIT},
+      </if>
+      <if test="fismailvalidate != null" >
+        #{fismailvalidate,jdbcType=BIT},
+      </if>
+      <if test="fgooglevalidate != null" >
+        #{fgooglevalidate,jdbcType=BIT},
+      </if>
+      <if test="fopentelvalidate != null" >
+        #{fopentelvalidate,jdbcType=BIT},
+      </if>
+      <if test="fopengooglevalidate != null" >
+        #{fopengooglevalidate,jdbcType=BIT},
+      </if>
+      <if test="fopensecondvalidate != null" >
+        #{fopensecondvalidate,jdbcType=BIT},
+      </if>
+      <if test="fgooglebind != null" >
+        #{fgooglebind,jdbcType=BIT},
+      </if>
+      <if test="fpostrealvalidate != null" >
+        #{fpostrealvalidate,jdbcType=BIT},
+      </if>
+      <if test="fhasrealvalidate != null" >
+        #{fhasrealvalidate,jdbcType=BIT},
+      </if>
+      <if test="fpostrealvalidatetime != null" >
+        #{fpostrealvalidatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fhasrealvalidatetime != null" >
+        #{fhasrealvalidatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fidentitytype != null" >
+        #{fidentitytype,jdbcType=INTEGER},
+      </if>
+      <if test="fistelephonebind != null" >
+        #{fistelephonebind,jdbcType=BIT},
+      </if>
+      <if test="flastupdatetime != null" >
+        #{flastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fareacode != null" >
+        #{fareacode,jdbcType=VARCHAR},
+      </if>
+      <if test="fscoreid != null" >
+        #{fscoreid,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="fidentitypath != null" >
+        #{fidentitypath,jdbcType=VARCHAR},
+      </if>
+      <if test="fapi != null" >
+        #{fapi,jdbcType=INTEGER},
+      </if>
+      <if test="fidentitypath2 != null" >
+        #{fidentitypath2,jdbcType=VARCHAR},
+      </if>
+      <if test="finvalidateintrocount != null" >
+        #{finvalidateintrocount,jdbcType=INTEGER},
+      </if>
+      <if test="flastupdatezhongdoutime != null" >
+        #{flastupdatezhongdoutime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fisstartzhongdou != null" >
+        #{fisstartzhongdou,jdbcType=BIT},
+      </if>
+      <if test="qqlogin != null" >
+        #{qqlogin,jdbcType=VARCHAR},
+      </if>
+      <if test="faddress != null" >
+        #{faddress,jdbcType=VARCHAR},
+      </if>
+      <if test="fregtype != null" >
+        #{fregtype,jdbcType=INTEGER},
+      </if>
+      <if test="fgrade != null" >
+        #{fgrade,jdbcType=INTEGER},
+      </if>
+      <if test="fuserno != null" >
+        #{fuserno,jdbcType=VARCHAR},
+      </if>
+      <if test="fbalancecny != null" >
+        #{fbalancecny,jdbcType=DECIMAL},
+      </if>
+      <if test="fbalancetmc != null" >
+        #{fbalancetmc,jdbcType=DECIMAL},
+      </if>
+      <if test="fuserintrolno != null" >
+        #{fuserintrolno,jdbcType=VARCHAR},
+      </if>
+      <if test="fisvalid != null" >
+        #{fisvalid,jdbcType=TINYINT},
+      </if>
+      <if test="fistiger != null" >
+        #{fistiger,jdbcType=TINYINT},
+      </if>
+      <if test="fregip != null" >
+        #{fregip,jdbcType=VARCHAR},
+      </if>
+      <if test="flastloginip != null" >
+        #{flastloginip,jdbcType=VARCHAR},
+      </if>
+      <if test="fintroluserno != null" >
+        #{fintroluserno,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="fidentitypath3 != null" >
+        #{fidentitypath3,jdbcType=VARCHAR},
+      </if>
+      <if test="fusertype != null" >
+        #{fusertype,jdbcType=INTEGER},
+      </if>
+      <if test="fservicetraderate != null" >
+        #{fservicetraderate,jdbcType=VARCHAR},
+      </if>
+      <if test="fservicesubrate != null" >
+        #{fservicesubrate,jdbcType=VARCHAR},
+      </if>
+      <if test="fproxynumber != null" >
+        #{fproxynumber,jdbcType=VARCHAR},
+      </if>
+      <if test="fproxytraderate != null" >
+        #{fproxytraderate,jdbcType=DECIMAL},
+      </if>
+      <if test="fproxysubrate != null" >
+        #{fproxysubrate,jdbcType=DECIMAL},
+      </if>
+      <if test="fischeck != null" >
+        #{fischeck,jdbcType=TINYINT},
+      </if>
+      <if test="fsex != null" >
+        #{fsex,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="fbirth != null" >
+        #{fbirth,jdbcType=DATE},
+      </if>
+      <if test="fposthighvalidate != null" >
+        #{fposthighvalidate,jdbcType=TINYINT},
+      </if>
+      <if test="fhashighvalidate != null" >
+        #{fhashighvalidate,jdbcType=TINYINT},
+      </if>
+      <if test="fposthighvalidatetime != null" >
+        #{fposthighvalidatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fhashighvalidatetime != null" >
+        #{fhashighvalidatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="famt != null" >
+        #{famt,jdbcType=DECIMAL},
+      </if>
+      <if test="fintrouserId3 != null" >
+        #{fintrouserId3,jdbcType=INTEGER},
+      </if>
+      <if test="fintrouserId2 != null" >
+        #{fintrouserId2,jdbcType=INTEGER},
+      </if>
+      <if test="fpostimgvalidate != null" >
+        #{fpostimgvalidate,jdbcType=TINYINT},
+      </if>
+      <if test="fhasimgvalidate != null" >
+        #{fhasimgvalidate,jdbcType=TINYINT},
+      </if>
+      <if test="fpostimgvalidatetime != null" >
+        #{fpostimgvalidatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fhasimgvalidatetime != null" >
+        #{fhasimgvalidatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fhasvideovalidate != null" >
+        #{fhasvideovalidate,jdbcType=TINYINT},
+      </if>
+      <if test="fhasvideovalidatetime != null" >
+        #{fhasvideovalidatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fgooglecheck != null" >
+        #{fgooglecheck,jdbcType=BIT},
+      </if>
+      <if test="fismerchant != null" >
+        #{fismerchant,jdbcType=BIT},
+      </if>
+      <if test="fbankpath != null" >
+        #{fbankpath,jdbcType=VARCHAR},
+      </if>
+      <if test="fbankpath2 != null" >
+        #{fbankpath2,jdbcType=VARCHAR},
+      </if>
+      <if test="fbankpath3 != null" >
+        #{fbankpath3,jdbcType=VARCHAR},
+      </if>
+      <if test="authgrade != null" >
+        #{authgrade,jdbcType=INTEGER},
+      </if>
+      <if test="fhasbankvalidate != null" >
+        #{fhasbankvalidate,jdbcType=TINYINT},
+      </if>
+      <if test="fpostbankvalidate != null" >
+        #{fpostbankvalidate,jdbcType=TINYINT},
+      </if>
+      <if test="faudit != null" >
+        #{faudit,jdbcType=INTEGER},
+      </if>
+      <if test="fleaderid != null" >
+        #{fleaderid,jdbcType=INTEGER},
+      </if>
+      <if test="fisversion != null" >
+        #{fisversion,jdbcType=BIT},
+      </if>
+      <if test="fisleader != null" >
+        #{fisleader,jdbcType=BIT},
+      </if>
+      <if test="fcanloginteammanager != null" >
+        #{fcanloginteammanager,jdbcType=BIT},
+      </if>
+      <if test="folduid != null" >
+        #{folduid,jdbcType=VARCHAR},
+      </if>
+      <if test="fintrouserId != null" >
+        #{fintrouserId,jdbcType=INTEGER},
+      </if>
+      <if test="fcoaleaderid != null" >
+        #{fcoaleaderid,jdbcType=VARCHAR},
+      </if>
+      <if test="finsertdata != null" >
+        #{finsertdata,jdbcType=INTEGER},
+      </if>
+      <if test="finsertpwd != null" >
+        #{finsertpwd,jdbcType=INTEGER},
+      </if>
+      <if test="fisadvertise != null" >
+        #{fisadvertise,jdbcType=TINYINT},
+      </if>
+      <if test="layer != null" >
+        #{layer,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="frewardedinviter != null" >
+        #{frewardedinviter,jdbcType=INTEGER},
+      </if>
+      <if test="fisearlywarning != null" >
+        #{fisearlywarning,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="server.database.entity.FuserExample" resultType="java.lang.Integer" >
+    select count(*) from fuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fuser
+    <set >
+      <if test="record.fid != null" >
+        fId = #{record.fid,jdbcType=INTEGER},
+      </if>
+      <if test="record.floginname != null" >
+        floginName = #{record.floginname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floginpassword != null" >
+        fLoginPassword = #{record.floginpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ftradepassword != null" >
+        fTradePassword = #{record.ftradepassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fnickname != null" >
+        fNickName = #{record.fnickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.frealname != null" >
+        fRealName = #{record.frealname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ftelephone != null" >
+        fTelephone = #{record.ftelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.femail != null" >
+        fEmail = #{record.femail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fidentityno != null" >
+        fIdentityNo = #{record.fidentityno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fregistertime != null" >
+        fRegisterTime = #{record.fregistertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.flastlogintime != null" >
+        fLastLoginTime = #{record.flastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fgoogleauthenticator != null" >
+        fGoogleAuthenticator = #{record.fgoogleauthenticator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fgoogleurl != null" >
+        fgoogleurl = #{record.fgoogleurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fmobilmessagecode != null" >
+        fMobilMessageCode = #{record.fmobilmessagecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fstatus != null" >
+        fStatus = #{record.fstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.fistelvalidate != null" >
+        fIsTelValidate = #{record.fistelvalidate,jdbcType=BIT},
+      </if>
+      <if test="record.fismailvalidate != null" >
+        fIsMailValidate = #{record.fismailvalidate,jdbcType=BIT},
+      </if>
+      <if test="record.fgooglevalidate != null" >
+        fGoogleValidate = #{record.fgooglevalidate,jdbcType=BIT},
+      </if>
+      <if test="record.fopentelvalidate != null" >
+        fopenTelValidate = #{record.fopentelvalidate,jdbcType=BIT},
+      </if>
+      <if test="record.fopengooglevalidate != null" >
+        fopenGoogleValidate = #{record.fopengooglevalidate,jdbcType=BIT},
+      </if>
+      <if test="record.fopensecondvalidate != null" >
+        fopenSecondValidate = #{record.fopensecondvalidate,jdbcType=BIT},
+      </if>
+      <if test="record.fgooglebind != null" >
+        fgoogleBind = #{record.fgooglebind,jdbcType=BIT},
+      </if>
+      <if test="record.fpostrealvalidate != null" >
+        fpostRealValidate = #{record.fpostrealvalidate,jdbcType=BIT},
+      </if>
+      <if test="record.fhasrealvalidate != null" >
+        fhasRealValidate = #{record.fhasrealvalidate,jdbcType=BIT},
+      </if>
+      <if test="record.fpostrealvalidatetime != null" >
+        fpostRealValidateTime = #{record.fpostrealvalidatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fhasrealvalidatetime != null" >
+        fhasRealValidateTime = #{record.fhasrealvalidatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fidentitytype != null" >
+        fidentityType = #{record.fidentitytype,jdbcType=INTEGER},
+      </if>
+      <if test="record.fistelephonebind != null" >
+        fisTelephoneBind = #{record.fistelephonebind,jdbcType=BIT},
+      </if>
+      <if test="record.flastupdatetime != null" >
+        flastUpdateTime = #{record.flastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fareacode != null" >
+        fareaCode = #{record.fareacode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fscoreid != null" >
+        fscoreid = #{record.fscoreid,jdbcType=INTEGER},
+      </if>
+      <if test="record.version != null" >
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
+      <if test="record.fidentitypath != null" >
+        fIdentityPath = #{record.fidentitypath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fapi != null" >
+        fapi = #{record.fapi,jdbcType=INTEGER},
+      </if>
+      <if test="record.fidentitypath2 != null" >
+        fIdentityPath2 = #{record.fidentitypath2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finvalidateintrocount != null" >
+        fInvalidateIntroCount = #{record.finvalidateintrocount,jdbcType=INTEGER},
+      </if>
+      <if test="record.flastupdatezhongdoutime != null" >
+        flastUpdateZhongdouTime = #{record.flastupdatezhongdoutime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fisstartzhongdou != null" >
+        fIsStartZhongDou = #{record.fisstartzhongdou,jdbcType=BIT},
+      </if>
+      <if test="record.qqlogin != null" >
+        qqlogin = #{record.qqlogin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.faddress != null" >
+        faddress = #{record.faddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fregtype != null" >
+        fregType = #{record.fregtype,jdbcType=INTEGER},
+      </if>
+      <if test="record.fgrade != null" >
+        fgrade = #{record.fgrade,jdbcType=INTEGER},
+      </if>
+      <if test="record.fuserno != null" >
+        fuserno = #{record.fuserno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fbalancecny != null" >
+        fbalancecny = #{record.fbalancecny,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fbalancetmc != null" >
+        fbalancetmc = #{record.fbalancetmc,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fuserintrolno != null" >
+        fuserIntrolNo = #{record.fuserintrolno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fisvalid != null" >
+        fisValid = #{record.fisvalid,jdbcType=TINYINT},
+      </if>
+      <if test="record.fistiger != null" >
+        fistiger = #{record.fistiger,jdbcType=TINYINT},
+      </if>
+      <if test="record.fregip != null" >
+        fregIp = #{record.fregip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flastloginip != null" >
+        flastLoginIp = #{record.flastloginip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fintroluserno != null" >
+        fintrolUserNo = #{record.fintroluserno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salt != null" >
+        salt = #{record.salt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fidentitypath3 != null" >
+        fIdentityPath3 = #{record.fidentitypath3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fusertype != null" >
+        fuserType = #{record.fusertype,jdbcType=INTEGER},
+      </if>
+      <if test="record.fservicetraderate != null" >
+        fServiceTradeRate = #{record.fservicetraderate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fservicesubrate != null" >
+        fServiceSubRate = #{record.fservicesubrate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fproxynumber != null" >
+        fProxyNumber = #{record.fproxynumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fproxytraderate != null" >
+        fProxyTradeRate = #{record.fproxytraderate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fproxysubrate != null" >
+        fProxySubRate = #{record.fproxysubrate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fischeck != null" >
+        fischeck = #{record.fischeck,jdbcType=TINYINT},
+      </if>
+      <if test="record.fsex != null" >
+        fsex = #{record.fsex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.country != null" >
+        country = #{record.country,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fbirth != null" >
+        fbirth = #{record.fbirth,jdbcType=DATE},
+      </if>
+      <if test="record.fposthighvalidate != null" >
+        fpostHighValidate = #{record.fposthighvalidate,jdbcType=TINYINT},
+      </if>
+      <if test="record.fhashighvalidate != null" >
+        fhasHighValidate = #{record.fhashighvalidate,jdbcType=TINYINT},
+      </if>
+      <if test="record.fposthighvalidatetime != null" >
+        fpostHighValidateTime = #{record.fposthighvalidatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fhashighvalidatetime != null" >
+        fhasHighValidateTime = #{record.fhashighvalidatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.famt != null" >
+        famt = #{record.famt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fintrouserId3 != null" >
+        fIntroUser_id3 = #{record.fintrouserId3,jdbcType=INTEGER},
+      </if>
+      <if test="record.fintrouserId2 != null" >
+        fIntroUser_id2 = #{record.fintrouserId2,jdbcType=INTEGER},
+      </if>
+      <if test="record.fpostimgvalidate != null" >
+        fpostImgValidate = #{record.fpostimgvalidate,jdbcType=TINYINT},
+      </if>
+      <if test="record.fhasimgvalidate != null" >
+        fhasImgValidate = #{record.fhasimgvalidate,jdbcType=TINYINT},
+      </if>
+      <if test="record.fpostimgvalidatetime != null" >
+        fpostImgValidateTime = #{record.fpostimgvalidatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fhasimgvalidatetime != null" >
+        fhasImgValidateTime = #{record.fhasimgvalidatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fhasvideovalidate != null" >
+        fhasVideoValidate = #{record.fhasvideovalidate,jdbcType=TINYINT},
+      </if>
+      <if test="record.fhasvideovalidatetime != null" >
+        fhasVideoValidateTime = #{record.fhasvideovalidatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fgooglecheck != null" >
+        fGoogleCheck = #{record.fgooglecheck,jdbcType=BIT},
+      </if>
+      <if test="record.fismerchant != null" >
+        fIsMerchant = #{record.fismerchant,jdbcType=BIT},
+      </if>
+      <if test="record.fbankpath != null" >
+        fBankPath = #{record.fbankpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fbankpath2 != null" >
+        fBankPath2 = #{record.fbankpath2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fbankpath3 != null" >
+        fBankPath3 = #{record.fbankpath3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authgrade != null" >
+        authGrade = #{record.authgrade,jdbcType=INTEGER},
+      </if>
+      <if test="record.fhasbankvalidate != null" >
+        fhasBankValidate = #{record.fhasbankvalidate,jdbcType=TINYINT},
+      </if>
+      <if test="record.fpostbankvalidate != null" >
+        fpostBankValidate = #{record.fpostbankvalidate,jdbcType=TINYINT},
+      </if>
+      <if test="record.faudit != null" >
+        faudit = #{record.faudit,jdbcType=INTEGER},
+      </if>
+      <if test="record.fleaderid != null" >
+        fleaderId = #{record.fleaderid,jdbcType=INTEGER},
+      </if>
+      <if test="record.fisversion != null" >
+        fisversion = #{record.fisversion,jdbcType=BIT},
+      </if>
+      <if test="record.fisleader != null" >
+        fisleader = #{record.fisleader,jdbcType=BIT},
+      </if>
+      <if test="record.fcanloginteammanager != null" >
+        fCanLoginTeamManager = #{record.fcanloginteammanager,jdbcType=BIT},
+      </if>
+      <if test="record.folduid != null" >
+        folduid = #{record.folduid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fintrouserId != null" >
+        fIntroUser_id = #{record.fintrouserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fcoaleaderid != null" >
+        fcoaleaderId = #{record.fcoaleaderid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finsertdata != null" >
+        fInsertData = #{record.finsertdata,jdbcType=INTEGER},
+      </if>
+      <if test="record.finsertpwd != null" >
+        fInsertpwd = #{record.finsertpwd,jdbcType=INTEGER},
+      </if>
+      <if test="record.fisadvertise != null" >
+        fisadvertise = #{record.fisadvertise,jdbcType=TINYINT},
+      </if>
+      <if test="record.layer != null" >
+        Layer_ = #{record.layer,jdbcType=INTEGER},
+      </if>
+      <if test="record.level != null" >
+        level_ = #{record.level,jdbcType=INTEGER},
+      </if>
+      <if test="record.frewardedinviter != null" >
+        fRewardedInviter = #{record.frewardedinviter,jdbcType=INTEGER},
+      </if>
+      <if test="record.fisearlywarning != null" >
+        fisEarlyWarning = #{record.fisearlywarning,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fuser
+    set fId = #{record.fid,jdbcType=INTEGER},
+      floginName = #{record.floginname,jdbcType=VARCHAR},
+      fLoginPassword = #{record.floginpassword,jdbcType=VARCHAR},
+      fTradePassword = #{record.ftradepassword,jdbcType=VARCHAR},
+      fNickName = #{record.fnickname,jdbcType=VARCHAR},
+      fRealName = #{record.frealname,jdbcType=VARCHAR},
+      fTelephone = #{record.ftelephone,jdbcType=VARCHAR},
+      fEmail = #{record.femail,jdbcType=VARCHAR},
+      fIdentityNo = #{record.fidentityno,jdbcType=VARCHAR},
+      fRegisterTime = #{record.fregistertime,jdbcType=TIMESTAMP},
+      fLastLoginTime = #{record.flastlogintime,jdbcType=TIMESTAMP},
+      fGoogleAuthenticator = #{record.fgoogleauthenticator,jdbcType=VARCHAR},
+      fgoogleurl = #{record.fgoogleurl,jdbcType=VARCHAR},
+      fMobilMessageCode = #{record.fmobilmessagecode,jdbcType=VARCHAR},
+      fStatus = #{record.fstatus,jdbcType=INTEGER},
+      fIsTelValidate = #{record.fistelvalidate,jdbcType=BIT},
+      fIsMailValidate = #{record.fismailvalidate,jdbcType=BIT},
+      fGoogleValidate = #{record.fgooglevalidate,jdbcType=BIT},
+      fopenTelValidate = #{record.fopentelvalidate,jdbcType=BIT},
+      fopenGoogleValidate = #{record.fopengooglevalidate,jdbcType=BIT},
+      fopenSecondValidate = #{record.fopensecondvalidate,jdbcType=BIT},
+      fgoogleBind = #{record.fgooglebind,jdbcType=BIT},
+      fpostRealValidate = #{record.fpostrealvalidate,jdbcType=BIT},
+      fhasRealValidate = #{record.fhasrealvalidate,jdbcType=BIT},
+      fpostRealValidateTime = #{record.fpostrealvalidatetime,jdbcType=TIMESTAMP},
+      fhasRealValidateTime = #{record.fhasrealvalidatetime,jdbcType=TIMESTAMP},
+      fidentityType = #{record.fidentitytype,jdbcType=INTEGER},
+      fisTelephoneBind = #{record.fistelephonebind,jdbcType=BIT},
+      flastUpdateTime = #{record.flastupdatetime,jdbcType=TIMESTAMP},
+      fareaCode = #{record.fareacode,jdbcType=VARCHAR},
+      fscoreid = #{record.fscoreid,jdbcType=INTEGER},
+      version = #{record.version,jdbcType=INTEGER},
+      fIdentityPath = #{record.fidentitypath,jdbcType=VARCHAR},
+      fapi = #{record.fapi,jdbcType=INTEGER},
+      fIdentityPath2 = #{record.fidentitypath2,jdbcType=VARCHAR},
+      fInvalidateIntroCount = #{record.finvalidateintrocount,jdbcType=INTEGER},
+      flastUpdateZhongdouTime = #{record.flastupdatezhongdoutime,jdbcType=TIMESTAMP},
+      fIsStartZhongDou = #{record.fisstartzhongdou,jdbcType=BIT},
+      qqlogin = #{record.qqlogin,jdbcType=VARCHAR},
+      faddress = #{record.faddress,jdbcType=VARCHAR},
+      fregType = #{record.fregtype,jdbcType=INTEGER},
+      fgrade = #{record.fgrade,jdbcType=INTEGER},
+      fuserno = #{record.fuserno,jdbcType=VARCHAR},
+      fbalancecny = #{record.fbalancecny,jdbcType=DECIMAL},
+      fbalancetmc = #{record.fbalancetmc,jdbcType=DECIMAL},
+      fuserIntrolNo = #{record.fuserintrolno,jdbcType=VARCHAR},
+      fisValid = #{record.fisvalid,jdbcType=TINYINT},
+      fistiger = #{record.fistiger,jdbcType=TINYINT},
+      fregIp = #{record.fregip,jdbcType=VARCHAR},
+      flastLoginIp = #{record.flastloginip,jdbcType=VARCHAR},
+      fintrolUserNo = #{record.fintroluserno,jdbcType=VARCHAR},
+      salt = #{record.salt,jdbcType=VARCHAR},
+      fIdentityPath3 = #{record.fidentitypath3,jdbcType=VARCHAR},
+      fuserType = #{record.fusertype,jdbcType=INTEGER},
+      fServiceTradeRate = #{record.fservicetraderate,jdbcType=VARCHAR},
+      fServiceSubRate = #{record.fservicesubrate,jdbcType=VARCHAR},
+      fProxyNumber = #{record.fproxynumber,jdbcType=VARCHAR},
+      fProxyTradeRate = #{record.fproxytraderate,jdbcType=DECIMAL},
+      fProxySubRate = #{record.fproxysubrate,jdbcType=DECIMAL},
+      fischeck = #{record.fischeck,jdbcType=TINYINT},
+      fsex = #{record.fsex,jdbcType=VARCHAR},
+      country = #{record.country,jdbcType=VARCHAR},
+      fbirth = #{record.fbirth,jdbcType=DATE},
+      fpostHighValidate = #{record.fposthighvalidate,jdbcType=TINYINT},
+      fhasHighValidate = #{record.fhashighvalidate,jdbcType=TINYINT},
+      fpostHighValidateTime = #{record.fposthighvalidatetime,jdbcType=TIMESTAMP},
+      fhasHighValidateTime = #{record.fhashighvalidatetime,jdbcType=TIMESTAMP},
+      famt = #{record.famt,jdbcType=DECIMAL},
+      fIntroUser_id3 = #{record.fintrouserId3,jdbcType=INTEGER},
+      fIntroUser_id2 = #{record.fintrouserId2,jdbcType=INTEGER},
+      fpostImgValidate = #{record.fpostimgvalidate,jdbcType=TINYINT},
+      fhasImgValidate = #{record.fhasimgvalidate,jdbcType=TINYINT},
+      fpostImgValidateTime = #{record.fpostimgvalidatetime,jdbcType=TIMESTAMP},
+      fhasImgValidateTime = #{record.fhasimgvalidatetime,jdbcType=TIMESTAMP},
+      fhasVideoValidate = #{record.fhasvideovalidate,jdbcType=TINYINT},
+      fhasVideoValidateTime = #{record.fhasvideovalidatetime,jdbcType=TIMESTAMP},
+      fGoogleCheck = #{record.fgooglecheck,jdbcType=BIT},
+      fIsMerchant = #{record.fismerchant,jdbcType=BIT},
+      fBankPath = #{record.fbankpath,jdbcType=VARCHAR},
+      fBankPath2 = #{record.fbankpath2,jdbcType=VARCHAR},
+      fBankPath3 = #{record.fbankpath3,jdbcType=VARCHAR},
+      authGrade = #{record.authgrade,jdbcType=INTEGER},
+      fhasBankValidate = #{record.fhasbankvalidate,jdbcType=TINYINT},
+      fpostBankValidate = #{record.fpostbankvalidate,jdbcType=TINYINT},
+      faudit = #{record.faudit,jdbcType=INTEGER},
+      fleaderId = #{record.fleaderid,jdbcType=INTEGER},
+      fisversion = #{record.fisversion,jdbcType=BIT},
+      fisleader = #{record.fisleader,jdbcType=BIT},
+      fCanLoginTeamManager = #{record.fcanloginteammanager,jdbcType=BIT},
+      folduid = #{record.folduid,jdbcType=VARCHAR},
+      fIntroUser_id = #{record.fintrouserId,jdbcType=INTEGER},
+      fcoaleaderId = #{record.fcoaleaderid,jdbcType=VARCHAR},
+      fInsertData = #{record.finsertdata,jdbcType=INTEGER},
+      fInsertpwd = #{record.finsertpwd,jdbcType=INTEGER},
+      fisadvertise = #{record.fisadvertise,jdbcType=TINYINT},
+      Layer_ = #{record.layer,jdbcType=INTEGER},
+      level_ = #{record.level,jdbcType=INTEGER},
+      fRewardedInviter = #{record.frewardedinviter,jdbcType=INTEGER},
+      fisEarlyWarning = #{record.fisearlywarning,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="server.database.entity.Fuser" >
+    update fuser
+    <set >
+      <if test="floginname != null" >
+        floginName = #{floginname,jdbcType=VARCHAR},
+      </if>
+      <if test="floginpassword != null" >
+        fLoginPassword = #{floginpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="ftradepassword != null" >
+        fTradePassword = #{ftradepassword,jdbcType=VARCHAR},
+      </if>
+      <if test="fnickname != null" >
+        fNickName = #{fnickname,jdbcType=VARCHAR},
+      </if>
+      <if test="frealname != null" >
+        fRealName = #{frealname,jdbcType=VARCHAR},
+      </if>
+      <if test="ftelephone != null" >
+        fTelephone = #{ftelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="femail != null" >
+        fEmail = #{femail,jdbcType=VARCHAR},
+      </if>
+      <if test="fidentityno != null" >
+        fIdentityNo = #{fidentityno,jdbcType=VARCHAR},
+      </if>
+      <if test="fregistertime != null" >
+        fRegisterTime = #{fregistertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flastlogintime != null" >
+        fLastLoginTime = #{flastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fgoogleauthenticator != null" >
+        fGoogleAuthenticator = #{fgoogleauthenticator,jdbcType=VARCHAR},
+      </if>
+      <if test="fgoogleurl != null" >
+        fgoogleurl = #{fgoogleurl,jdbcType=VARCHAR},
+      </if>
+      <if test="fmobilmessagecode != null" >
+        fMobilMessageCode = #{fmobilmessagecode,jdbcType=VARCHAR},
+      </if>
+      <if test="fstatus != null" >
+        fStatus = #{fstatus,jdbcType=INTEGER},
+      </if>
+      <if test="fistelvalidate != null" >
+        fIsTelValidate = #{fistelvalidate,jdbcType=BIT},
+      </if>
+      <if test="fismailvalidate != null" >
+        fIsMailValidate = #{fismailvalidate,jdbcType=BIT},
+      </if>
+      <if test="fgooglevalidate != null" >
+        fGoogleValidate = #{fgooglevalidate,jdbcType=BIT},
+      </if>
+      <if test="fopentelvalidate != null" >
+        fopenTelValidate = #{fopentelvalidate,jdbcType=BIT},
+      </if>
+      <if test="fopengooglevalidate != null" >
+        fopenGoogleValidate = #{fopengooglevalidate,jdbcType=BIT},
+      </if>
+      <if test="fopensecondvalidate != null" >
+        fopenSecondValidate = #{fopensecondvalidate,jdbcType=BIT},
+      </if>
+      <if test="fgooglebind != null" >
+        fgoogleBind = #{fgooglebind,jdbcType=BIT},
+      </if>
+      <if test="fpostrealvalidate != null" >
+        fpostRealValidate = #{fpostrealvalidate,jdbcType=BIT},
+      </if>
+      <if test="fhasrealvalidate != null" >
+        fhasRealValidate = #{fhasrealvalidate,jdbcType=BIT},
+      </if>
+      <if test="fpostrealvalidatetime != null" >
+        fpostRealValidateTime = #{fpostrealvalidatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fhasrealvalidatetime != null" >
+        fhasRealValidateTime = #{fhasrealvalidatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fidentitytype != null" >
+        fidentityType = #{fidentitytype,jdbcType=INTEGER},
+      </if>
+      <if test="fistelephonebind != null" >
+        fisTelephoneBind = #{fistelephonebind,jdbcType=BIT},
+      </if>
+      <if test="flastupdatetime != null" >
+        flastUpdateTime = #{flastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fareacode != null" >
+        fareaCode = #{fareacode,jdbcType=VARCHAR},
+      </if>
+      <if test="fscoreid != null" >
+        fscoreid = #{fscoreid,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="fidentitypath != null" >
+        fIdentityPath = #{fidentitypath,jdbcType=VARCHAR},
+      </if>
+      <if test="fapi != null" >
+        fapi = #{fapi,jdbcType=INTEGER},
+      </if>
+      <if test="fidentitypath2 != null" >
+        fIdentityPath2 = #{fidentitypath2,jdbcType=VARCHAR},
+      </if>
+      <if test="finvalidateintrocount != null" >
+        fInvalidateIntroCount = #{finvalidateintrocount,jdbcType=INTEGER},
+      </if>
+      <if test="flastupdatezhongdoutime != null" >
+        flastUpdateZhongdouTime = #{flastupdatezhongdoutime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fisstartzhongdou != null" >
+        fIsStartZhongDou = #{fisstartzhongdou,jdbcType=BIT},
+      </if>
+      <if test="qqlogin != null" >
+        qqlogin = #{qqlogin,jdbcType=VARCHAR},
+      </if>
+      <if test="faddress != null" >
+        faddress = #{faddress,jdbcType=VARCHAR},
+      </if>
+      <if test="fregtype != null" >
+        fregType = #{fregtype,jdbcType=INTEGER},
+      </if>
+      <if test="fgrade != null" >
+        fgrade = #{fgrade,jdbcType=INTEGER},
+      </if>
+      <if test="fuserno != null" >
+        fuserno = #{fuserno,jdbcType=VARCHAR},
+      </if>
+      <if test="fbalancecny != null" >
+        fbalancecny = #{fbalancecny,jdbcType=DECIMAL},
+      </if>
+      <if test="fbalancetmc != null" >
+        fbalancetmc = #{fbalancetmc,jdbcType=DECIMAL},
+      </if>
+      <if test="fuserintrolno != null" >
+        fuserIntrolNo = #{fuserintrolno,jdbcType=VARCHAR},
+      </if>
+      <if test="fisvalid != null" >
+        fisValid = #{fisvalid,jdbcType=TINYINT},
+      </if>
+      <if test="fistiger != null" >
+        fistiger = #{fistiger,jdbcType=TINYINT},
+      </if>
+      <if test="fregip != null" >
+        fregIp = #{fregip,jdbcType=VARCHAR},
+      </if>
+      <if test="flastloginip != null" >
+        flastLoginIp = #{flastloginip,jdbcType=VARCHAR},
+      </if>
+      <if test="fintroluserno != null" >
+        fintrolUserNo = #{fintroluserno,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="fidentitypath3 != null" >
+        fIdentityPath3 = #{fidentitypath3,jdbcType=VARCHAR},
+      </if>
+      <if test="fusertype != null" >
+        fuserType = #{fusertype,jdbcType=INTEGER},
+      </if>
+      <if test="fservicetraderate != null" >
+        fServiceTradeRate = #{fservicetraderate,jdbcType=VARCHAR},
+      </if>
+      <if test="fservicesubrate != null" >
+        fServiceSubRate = #{fservicesubrate,jdbcType=VARCHAR},
+      </if>
+      <if test="fproxynumber != null" >
+        fProxyNumber = #{fproxynumber,jdbcType=VARCHAR},
+      </if>
+      <if test="fproxytraderate != null" >
+        fProxyTradeRate = #{fproxytraderate,jdbcType=DECIMAL},
+      </if>
+      <if test="fproxysubrate != null" >
+        fProxySubRate = #{fproxysubrate,jdbcType=DECIMAL},
+      </if>
+      <if test="fischeck != null" >
+        fischeck = #{fischeck,jdbcType=TINYINT},
+      </if>
+      <if test="fsex != null" >
+        fsex = #{fsex,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="fbirth != null" >
+        fbirth = #{fbirth,jdbcType=DATE},
+      </if>
+      <if test="fposthighvalidate != null" >
+        fpostHighValidate = #{fposthighvalidate,jdbcType=TINYINT},
+      </if>
+      <if test="fhashighvalidate != null" >
+        fhasHighValidate = #{fhashighvalidate,jdbcType=TINYINT},
+      </if>
+      <if test="fposthighvalidatetime != null" >
+        fpostHighValidateTime = #{fposthighvalidatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fhashighvalidatetime != null" >
+        fhasHighValidateTime = #{fhashighvalidatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="famt != null" >
+        famt = #{famt,jdbcType=DECIMAL},
+      </if>
+      <if test="fintrouserId3 != null" >
+        fIntroUser_id3 = #{fintrouserId3,jdbcType=INTEGER},
+      </if>
+      <if test="fintrouserId2 != null" >
+        fIntroUser_id2 = #{fintrouserId2,jdbcType=INTEGER},
+      </if>
+      <if test="fpostimgvalidate != null" >
+        fpostImgValidate = #{fpostimgvalidate,jdbcType=TINYINT},
+      </if>
+      <if test="fhasimgvalidate != null" >
+        fhasImgValidate = #{fhasimgvalidate,jdbcType=TINYINT},
+      </if>
+      <if test="fpostimgvalidatetime != null" >
+        fpostImgValidateTime = #{fpostimgvalidatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fhasimgvalidatetime != null" >
+        fhasImgValidateTime = #{fhasimgvalidatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fhasvideovalidate != null" >
+        fhasVideoValidate = #{fhasvideovalidate,jdbcType=TINYINT},
+      </if>
+      <if test="fhasvideovalidatetime != null" >
+        fhasVideoValidateTime = #{fhasvideovalidatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fgooglecheck != null" >
+        fGoogleCheck = #{fgooglecheck,jdbcType=BIT},
+      </if>
+      <if test="fismerchant != null" >
+        fIsMerchant = #{fismerchant,jdbcType=BIT},
+      </if>
+      <if test="fbankpath != null" >
+        fBankPath = #{fbankpath,jdbcType=VARCHAR},
+      </if>
+      <if test="fbankpath2 != null" >
+        fBankPath2 = #{fbankpath2,jdbcType=VARCHAR},
+      </if>
+      <if test="fbankpath3 != null" >
+        fBankPath3 = #{fbankpath3,jdbcType=VARCHAR},
+      </if>
+      <if test="authgrade != null" >
+        authGrade = #{authgrade,jdbcType=INTEGER},
+      </if>
+      <if test="fhasbankvalidate != null" >
+        fhasBankValidate = #{fhasbankvalidate,jdbcType=TINYINT},
+      </if>
+      <if test="fpostbankvalidate != null" >
+        fpostBankValidate = #{fpostbankvalidate,jdbcType=TINYINT},
+      </if>
+      <if test="faudit != null" >
+        faudit = #{faudit,jdbcType=INTEGER},
+      </if>
+      <if test="fleaderid != null" >
+        fleaderId = #{fleaderid,jdbcType=INTEGER},
+      </if>
+      <if test="fisversion != null" >
+        fisversion = #{fisversion,jdbcType=BIT},
+      </if>
+      <if test="fisleader != null" >
+        fisleader = #{fisleader,jdbcType=BIT},
+      </if>
+      <if test="fcanloginteammanager != null" >
+        fCanLoginTeamManager = #{fcanloginteammanager,jdbcType=BIT},
+      </if>
+      <if test="folduid != null" >
+        folduid = #{folduid,jdbcType=VARCHAR},
+      </if>
+      <if test="fintrouserId != null" >
+        fIntroUser_id = #{fintrouserId,jdbcType=INTEGER},
+      </if>
+      <if test="fcoaleaderid != null" >
+        fcoaleaderId = #{fcoaleaderid,jdbcType=VARCHAR},
+      </if>
+      <if test="finsertdata != null" >
+        fInsertData = #{finsertdata,jdbcType=INTEGER},
+      </if>
+      <if test="finsertpwd != null" >
+        fInsertpwd = #{finsertpwd,jdbcType=INTEGER},
+      </if>
+      <if test="fisadvertise != null" >
+        fisadvertise = #{fisadvertise,jdbcType=TINYINT},
+      </if>
+      <if test="layer != null" >
+        Layer_ = #{layer,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level_ = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="frewardedinviter != null" >
+        fRewardedInviter = #{frewardedinviter,jdbcType=INTEGER},
+      </if>
+      <if test="fisearlywarning != null" >
+        fisEarlyWarning = #{fisearlywarning,jdbcType=BIT},
+      </if>
+    </set>
+    where fId = #{fid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="server.database.entity.Fuser" >
+    update fuser
+    set floginName = #{floginname,jdbcType=VARCHAR},
+      fLoginPassword = #{floginpassword,jdbcType=VARCHAR},
+      fTradePassword = #{ftradepassword,jdbcType=VARCHAR},
+      fNickName = #{fnickname,jdbcType=VARCHAR},
+      fRealName = #{frealname,jdbcType=VARCHAR},
+      fTelephone = #{ftelephone,jdbcType=VARCHAR},
+      fEmail = #{femail,jdbcType=VARCHAR},
+      fIdentityNo = #{fidentityno,jdbcType=VARCHAR},
+      fRegisterTime = #{fregistertime,jdbcType=TIMESTAMP},
+      fLastLoginTime = #{flastlogintime,jdbcType=TIMESTAMP},
+      fGoogleAuthenticator = #{fgoogleauthenticator,jdbcType=VARCHAR},
+      fgoogleurl = #{fgoogleurl,jdbcType=VARCHAR},
+      fMobilMessageCode = #{fmobilmessagecode,jdbcType=VARCHAR},
+      fStatus = #{fstatus,jdbcType=INTEGER},
+      fIsTelValidate = #{fistelvalidate,jdbcType=BIT},
+      fIsMailValidate = #{fismailvalidate,jdbcType=BIT},
+      fGoogleValidate = #{fgooglevalidate,jdbcType=BIT},
+      fopenTelValidate = #{fopentelvalidate,jdbcType=BIT},
+      fopenGoogleValidate = #{fopengooglevalidate,jdbcType=BIT},
+      fopenSecondValidate = #{fopensecondvalidate,jdbcType=BIT},
+      fgoogleBind = #{fgooglebind,jdbcType=BIT},
+      fpostRealValidate = #{fpostrealvalidate,jdbcType=BIT},
+      fhasRealValidate = #{fhasrealvalidate,jdbcType=BIT},
+      fpostRealValidateTime = #{fpostrealvalidatetime,jdbcType=TIMESTAMP},
+      fhasRealValidateTime = #{fhasrealvalidatetime,jdbcType=TIMESTAMP},
+      fidentityType = #{fidentitytype,jdbcType=INTEGER},
+      fisTelephoneBind = #{fistelephonebind,jdbcType=BIT},
+      flastUpdateTime = #{flastupdatetime,jdbcType=TIMESTAMP},
+      fareaCode = #{fareacode,jdbcType=VARCHAR},
+      fscoreid = #{fscoreid,jdbcType=INTEGER},
+      version = #{version,jdbcType=INTEGER},
+      fIdentityPath = #{fidentitypath,jdbcType=VARCHAR},
+      fapi = #{fapi,jdbcType=INTEGER},
+      fIdentityPath2 = #{fidentitypath2,jdbcType=VARCHAR},
+      fInvalidateIntroCount = #{finvalidateintrocount,jdbcType=INTEGER},
+      flastUpdateZhongdouTime = #{flastupdatezhongdoutime,jdbcType=TIMESTAMP},
+      fIsStartZhongDou = #{fisstartzhongdou,jdbcType=BIT},
+      qqlogin = #{qqlogin,jdbcType=VARCHAR},
+      faddress = #{faddress,jdbcType=VARCHAR},
+      fregType = #{fregtype,jdbcType=INTEGER},
+      fgrade = #{fgrade,jdbcType=INTEGER},
+      fuserno = #{fuserno,jdbcType=VARCHAR},
+      fbalancecny = #{fbalancecny,jdbcType=DECIMAL},
+      fbalancetmc = #{fbalancetmc,jdbcType=DECIMAL},
+      fuserIntrolNo = #{fuserintrolno,jdbcType=VARCHAR},
+      fisValid = #{fisvalid,jdbcType=TINYINT},
+      fistiger = #{fistiger,jdbcType=TINYINT},
+      fregIp = #{fregip,jdbcType=VARCHAR},
+      flastLoginIp = #{flastloginip,jdbcType=VARCHAR},
+      fintrolUserNo = #{fintroluserno,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      fIdentityPath3 = #{fidentitypath3,jdbcType=VARCHAR},
+      fuserType = #{fusertype,jdbcType=INTEGER},
+      fServiceTradeRate = #{fservicetraderate,jdbcType=VARCHAR},
+      fServiceSubRate = #{fservicesubrate,jdbcType=VARCHAR},
+      fProxyNumber = #{fproxynumber,jdbcType=VARCHAR},
+      fProxyTradeRate = #{fproxytraderate,jdbcType=DECIMAL},
+      fProxySubRate = #{fproxysubrate,jdbcType=DECIMAL},
+      fischeck = #{fischeck,jdbcType=TINYINT},
+      fsex = #{fsex,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      fbirth = #{fbirth,jdbcType=DATE},
+      fpostHighValidate = #{fposthighvalidate,jdbcType=TINYINT},
+      fhasHighValidate = #{fhashighvalidate,jdbcType=TINYINT},
+      fpostHighValidateTime = #{fposthighvalidatetime,jdbcType=TIMESTAMP},
+      fhasHighValidateTime = #{fhashighvalidatetime,jdbcType=TIMESTAMP},
+      famt = #{famt,jdbcType=DECIMAL},
+      fIntroUser_id3 = #{fintrouserId3,jdbcType=INTEGER},
+      fIntroUser_id2 = #{fintrouserId2,jdbcType=INTEGER},
+      fpostImgValidate = #{fpostimgvalidate,jdbcType=TINYINT},
+      fhasImgValidate = #{fhasimgvalidate,jdbcType=TINYINT},
+      fpostImgValidateTime = #{fpostimgvalidatetime,jdbcType=TIMESTAMP},
+      fhasImgValidateTime = #{fhasimgvalidatetime,jdbcType=TIMESTAMP},
+      fhasVideoValidate = #{fhasvideovalidate,jdbcType=TINYINT},
+      fhasVideoValidateTime = #{fhasvideovalidatetime,jdbcType=TIMESTAMP},
+      fGoogleCheck = #{fgooglecheck,jdbcType=BIT},
+      fIsMerchant = #{fismerchant,jdbcType=BIT},
+      fBankPath = #{fbankpath,jdbcType=VARCHAR},
+      fBankPath2 = #{fbankpath2,jdbcType=VARCHAR},
+      fBankPath3 = #{fbankpath3,jdbcType=VARCHAR},
+      authGrade = #{authgrade,jdbcType=INTEGER},
+      fhasBankValidate = #{fhasbankvalidate,jdbcType=TINYINT},
+      fpostBankValidate = #{fpostbankvalidate,jdbcType=TINYINT},
+      faudit = #{faudit,jdbcType=INTEGER},
+      fleaderId = #{fleaderid,jdbcType=INTEGER},
+      fisversion = #{fisversion,jdbcType=BIT},
+      fisleader = #{fisleader,jdbcType=BIT},
+      fCanLoginTeamManager = #{fcanloginteammanager,jdbcType=BIT},
+      folduid = #{folduid,jdbcType=VARCHAR},
+      fIntroUser_id = #{fintrouserId,jdbcType=INTEGER},
+      fcoaleaderId = #{fcoaleaderid,jdbcType=VARCHAR},
+      fInsertData = #{finsertdata,jdbcType=INTEGER},
+      fInsertpwd = #{finsertpwd,jdbcType=INTEGER},
+      fisadvertise = #{fisadvertise,jdbcType=TINYINT},
+      Layer_ = #{layer,jdbcType=INTEGER},
+      level_ = #{level,jdbcType=INTEGER},
+      fRewardedInviter = #{frewardedinviter,jdbcType=INTEGER},
+      fisEarlyWarning = #{fisearlywarning,jdbcType=BIT}
+    where fId = #{fid,jdbcType=INTEGER}
+  </update>
+</mapper>

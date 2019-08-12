@@ -10,31 +10,39 @@ import io.netty.handler.codec.http.HttpVersion;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * json response
  */
 public class ErrorCodeResponse {
-    protected static Map<String,String> httpResponse = new HashMap<>(2);
+    protected static Map<String,String> httpResponse = new ConcurrentHashMap<>(2);
     public static FullHttpResponse requestMethodError(String method){
         synchronized (httpResponse){
             httpResponse.put("error","Request method '"+method+"' not supported");
             httpResponse.put("code","405");
-            return baseResponse(httpResponse);
+            return baseResponse(httpResponse,405);
+        }
+    }
+    public static FullHttpResponse systemError(){
+        synchronized (httpResponse){
+            httpResponse.put("error","System Error");
+            httpResponse.put("code","500");
+            return baseResponse(httpResponse,500);
         }
     }
     public static FullHttpResponse requestTypeError(String type){
         synchronized (httpResponse){
             httpResponse.put("error","Request Content-Type '"+type+"' not supported");
             httpResponse.put("code","490");
-            return baseResponse(httpResponse);
+            return baseResponse(httpResponse,490);
         }
     }
-    public static FullHttpResponse requestUrlUnknow(String url){
+    public static FullHttpResponse requestUrlUnknown(String url){
         synchronized (httpResponse){
             httpResponse.put("error","Request Url '"+url+"' not supported");
             httpResponse.put("code","404");
-            return baseResponse(httpResponse);
+            return baseResponse(httpResponse,404);
         }
     }
 
@@ -43,10 +51,10 @@ public class ErrorCodeResponse {
      * @param map
      * @return
      */
-    protected static FullHttpResponse baseResponse(Map map){
+    protected static FullHttpResponse baseResponse(Map map,Integer code){
         FullHttpResponse fullHttpResponse = null;
         try {
-            fullHttpResponse = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.valueOf(490), Unpooled.wrappedBuffer(
+            fullHttpResponse = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.valueOf(code), Unpooled.wrappedBuffer(
                     JSON.toJSONString(map).getBytes("utf-8")
             ));
         } catch (UnsupportedEncodingException e) {

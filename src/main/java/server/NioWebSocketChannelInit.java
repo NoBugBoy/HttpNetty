@@ -6,7 +6,6 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
 import io.netty.handler.logging.LoggingHandler;
-import server.database.ConnUtils;
 
 
 public class NioWebSocketChannelInit extends ChannelInitializer<SocketChannel>{
