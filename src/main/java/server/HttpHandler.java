@@ -7,18 +7,13 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
-import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import server.anno.NettyRequestBody;
-import server.anno.NettyRequestUri;
+import server.anno.NettyRequestMapping;
 import server.anno.NettyRestController;
-import server.database.entity.Fuser;
-import server.database.mapper.FuserMapper;
 import server.error.NettyRequestBodyException;
 import server.utils.GlobalController;
-import server.utils.SqlSessionUtils;
 
-import javax.annotation.Resource;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.HashMap;
@@ -37,12 +32,6 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object>{
                 return;
             }
             String reqUrl = full.uri().substring(full.uri().indexOf("/"),full.uri().indexOf("?")<=0?full.uri().length():full.uri().indexOf("?"));
-//            Connection conn = ConnUtils.getConn();
-//            PreparedStatement preparedStatement = conn.prepareStatement("select * from t_acl_user_info");
-//            ResultSet resultSet = preparedStatement.executeQuery();
-//            resultSet.next();
-//            String login_password = resultSet.getString("login_password");
-//            System.out.println("查询到的密码:"+login_password);
             if(urlFilter(full.uri())){
                 //路径满足根据不同路径触发不同的任务
                 Set<Class<?>> controllers = GlobalController.getInstance();
@@ -57,9 +46,9 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object>{
                         ctx.writeAndFlush(bindParams);
                     }
                     for (Method method : GlobalController.getMethods(controller)) {
-                        boolean annotationPresent = method.isAnnotationPresent(NettyRequestUri.class);
+                        boolean annotationPresent = method.isAnnotationPresent(NettyRequestMapping.class);
                         if(annotationPresent){
-                            NettyRequestUri annotation = method.getAnnotation(NettyRequestUri.class);
+                            NettyRequestMapping annotation = method.getAnnotation(NettyRequestMapping.class);
                             if(reqUrl.equals(prefix+annotation.value())){
                                 logger.info("请求路径：{} , 请求方式:{}",prefix+annotation.value(),full.method().name());
                                 logger.info("请求参数：{}",JSON.toJSONString(bindParams));
@@ -79,6 +68,13 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object>{
                                                 if(parameters.length > 1){
                                                     ctx.writeAndFlush(ErrorCodeResponse.systemError());
                                                     throw new NettyRequestBodyException("MethodParam");
+                                                }
+                                                boolean required = parameter.getAnnotation(NettyRequestBody.class).required();
+                                                if(required){
+                                                    if(bindParams == null){
+                                                        ctx.writeAndFlush(ErrorCodeResponse.BadRequest());
+                                                        return;
+                                                    }
                                                 }
                                                 String s = JSONObject.toJSONString(bindParams);
                                                 bindParams = JSONObject.parseObject(s, parameter.getType());
@@ -134,6 +130,9 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object>{
     public Object paramFilter(FullHttpRequest request) {
         HttpMethod method = request.method();
         String body = request.content().toString(Charsets.UTF_8);
+        if(Constance.POST.equals(method.name().toUpperCase())&&( body == null || "".endsWith(body))){
+            return null;
+        }
         Map<String,String> params = new HashMap<>();
         switch (method.name().toUpperCase()){
             case Constance.GET :

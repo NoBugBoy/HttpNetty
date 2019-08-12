@@ -1,14 +1,14 @@
 package controller.cas;
 
 import server.NettyRequestMethod;
-import server.anno.NettyRequestUri;
+import server.anno.NettyRequestMapping;
 import server.anno.NettyRestController;
 
 import java.util.Map;
 
 @NettyRestController(value = "/user")
 public class Controller {
-    @NettyRequestUri(value = "/getUser",method =  {NettyRequestMethod.GET,NettyRequestMethod.POST})
+    @NettyRequestMapping(value = "/getUser",method =  {NettyRequestMethod.GET,NettyRequestMethod.POST})
     public String findUser(Map<String,String> map){
         String key = map.get("key");
         if("123".equals(key)){

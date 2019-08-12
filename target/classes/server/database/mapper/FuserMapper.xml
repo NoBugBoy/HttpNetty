@@ -209,6 +209,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="server.database.entity.Fuser" >
+    <selectKey resultType="java.lang.Integer" keyProperty="fid" order="BEFORE" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into fuser (fId, floginName, fLoginPassword, 
       fTradePassword, fNickName, fRealName, 
       fTelephone, fEmail, fIdentityNo, 
@@ -281,11 +284,12 @@
       #{frewardedinviter,jdbcType=INTEGER}, #{fisearlywarning,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="server.database.entity.Fuser" >
+    <selectKey resultType="java.lang.Integer" keyProperty="fid" order="BEFORE" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into fuser
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="fid != null" >
-        fId,
-      </if>
+      fId,
       <if test="floginname != null" >
         floginName,
       </if>
@@ -582,9 +586,7 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="fid != null" >
-        #{fid,jdbcType=INTEGER},
-      </if>
+      #{fid,jdbcType=INTEGER},
       <if test="floginname != null" >
         #{floginname,jdbcType=VARCHAR},
       </if>

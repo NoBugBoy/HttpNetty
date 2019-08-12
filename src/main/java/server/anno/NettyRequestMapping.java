@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 @Target(value = ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 
-public @interface NettyRequestUri {
+public @interface NettyRequestMapping {
     String value() default "";
     NettyRequestMethod[] method() default {};
 }

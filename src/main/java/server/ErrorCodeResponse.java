@@ -24,6 +24,13 @@ public class ErrorCodeResponse {
             return baseResponse(httpResponse,405);
         }
     }
+    public static FullHttpResponse BadRequest(){
+        synchronized (httpResponse){
+            httpResponse.put("error","Bad Request");
+            httpResponse.put("code","400");
+            return baseResponse(httpResponse,400);
+        }
+    }
     public static FullHttpResponse systemError(){
         synchronized (httpResponse){
             httpResponse.put("error","System Error");

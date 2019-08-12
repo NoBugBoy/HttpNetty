@@ -26,6 +26,7 @@ public class DruidDataSourceFactory implements DataSourceFactory {
     @Override
     public DataSource getDataSource() {
         DruidDataSource druidDataSource = new DruidDataSource();
+        druidDataSource.setDefaultAutoCommit(true);
         druidDataSource.setDriverClassName(this.props.getProperty("driver"));
         druidDataSource.setUrl(this.props.getProperty("url"));
         druidDataSource.setUsername(this.props.getProperty("username"));

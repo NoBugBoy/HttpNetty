@@ -9,7 +9,7 @@ public class SqlSessionUtils {
     public static void bindSqlSessionFactory(SqlSessionFactory session){
         sqlSessionFactory =session;
     }
-    public static SqlSession getSession(){
+    public static SqlSession openTransaction(){
         SqlSession sqlSession = sqlSessionFactory.openSession();
         return sqlSession;
     }
