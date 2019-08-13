@@ -54,9 +54,9 @@ public class NettyServer {
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workGroup = new NioEventLoopGroup();
         logger.info("运行端口："+port);
-        logger.info("初始化DB连接..");
+        logger.info("初始化数据源连接..");
 
-        Reader resourceAsReader = Resources.getResourceAsReader("Configure.xml");
+        Reader resourceAsReader = Resources.getResourceAsReader("MyBatisConfigure.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsReader);
         SqlSessionUtils.bindSqlSessionFactory(sqlSessionFactory);
         logger.info("初始化控制器..");
@@ -64,11 +64,10 @@ public class NettyServer {
         Set<Class<?>> controllers = reflections.getTypesAnnotatedWith(NettyRestController.class);
         logger.info("发现控制器数量:{}",controllers.size());
         GlobalController.setInstance(controllers);
-        long startTime = System.currentTimeMillis();
         for (Class<?> controller : controllers) {
             GlobalController.putInstanceMethods(controller,controller.getDeclaredMethods());
         }
-        logger.info("初始化控制器方法完成..耗时：{}毫秒",System.currentTimeMillis() - startTime);
+        logger.info("初始化控制器方法完成..");
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
             serverBootstrap.group(bossGroup,workGroup)

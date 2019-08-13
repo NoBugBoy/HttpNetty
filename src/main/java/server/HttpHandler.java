@@ -32,61 +32,66 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object>{
                 return;
             }
             String reqUrl = full.uri().substring(full.uri().indexOf("/"),full.uri().indexOf("?")<=0?full.uri().length():full.uri().indexOf("?"));
-            if(urlFilter(full.uri())){
-                //路径满足根据不同路径触发不同的任务
-                Set<Class<?>> controllers = GlobalController.getInstance();
-                for (Class<?> controller : controllers) {
-                    String prefix = "";
-                    if(controller.isAnnotationPresent(NettyRestController.class)){
-                        //拼接controller和
-                        prefix = prefix + controller.getAnnotation(NettyRestController.class).value();
-                    }
-                    Object bindParams = paramFilter(full);
-                    if(bindParams instanceof FullHttpResponse){
-                        ctx.writeAndFlush(bindParams);
-                    }
-                    for (Method method : GlobalController.getMethods(controller)) {
-                        boolean annotationPresent = method.isAnnotationPresent(NettyRequestMapping.class);
-                        if(annotationPresent){
-                            NettyRequestMapping annotation = method.getAnnotation(NettyRequestMapping.class);
-                            if(reqUrl.equals(prefix+annotation.value())){
-                                logger.info("请求路径：{} , 请求方式:{}",prefix+annotation.value(),full.method().name());
-                                logger.info("请求参数：{}",JSON.toJSONString(bindParams));
-                                int length = annotation.method().length;
-                                //请求的方法是否支持
-                                for (int i = 0; i < length; i++) {
-                                    if(full.method().name().toUpperCase()==annotation.method()[i].name()){
-                                        Parameter[] parameters = method.getParameters();
-                                        //参数个数 x如果大于1抛出异常
-                                        int x = 0;
-                                        for (int i2 = 0; i2 < parameters.length; i2++) {
-                                            //有注解的
-                                            Parameter parameter = parameters[i2];
-                                            //暂时只认为存在一个NettyRequestBody注解
-                                            if(parameter.isAnnotationPresent(NettyRequestBody.class)){
-                                                //如果有NettyRequestBody那么有且只有一个参数
-                                                if(parameters.length > 1){
-                                                    ctx.writeAndFlush(ErrorCodeResponse.systemError());
-                                                    throw new NettyRequestBodyException("MethodParam");
-                                                }
-                                                boolean required = parameter.getAnnotation(NettyRequestBody.class).required();
-                                                if(required){
-                                                    if(bindParams == null){
-                                                        ctx.writeAndFlush(ErrorCodeResponse.BadRequest());
-                                                        return;
-                                                    }
-                                                }
-                                                String s = JSONObject.toJSONString(bindParams);
-                                                bindParams = JSONObject.parseObject(s, parameter.getType());
-                                                x++;
+            //路径满足根据不同路径触发不同的任务
+            Set<Class<?>> controllers = GlobalController.getInstance();
+            for (Class<?> controller : controllers) {
+                String prefix = "";
+                if(controller.isAnnotationPresent(NettyRestController.class)){
+                    //拼接controller和
+                    prefix = prefix + controller.getAnnotation(NettyRestController.class).value();
+                }
+                Object bindParams = paramFilter(full);
+                if(bindParams instanceof FullHttpResponse){
+                    ctx.writeAndFlush(bindParams);
+                    return;
+                }
+                for (Method method : GlobalController.getMethods(controller)) {
+                    boolean annotationPresent = method.isAnnotationPresent(NettyRequestMapping.class);
+                    if(annotationPresent){
+                        NettyRequestMapping annotation = method.getAnnotation(NettyRequestMapping.class);
+                        if(reqUrl.equals(prefix+annotation.value())){
+                            logger.info("请求路径：{} , 请求方式:{}",prefix+annotation.value(),full.method().name());
+                            if("/file/upload".equals(annotation.value())){
+                                ctx.fireChannelRead(request);
+                                return;
+                            }
+                            logger.info("请求参数：{}",JSON.toJSONString(bindParams));
+                            int length = annotation.method().length;
+                            //请求的方法是否支持
+                            for (int i = 0; i < length; i++) {
+                                if(full.method().name().toUpperCase()==annotation.method()[i].name()){
+                                    Parameter[] parameters = method.getParameters();
+                                    //参数个数 x如果大于1抛出异常
+                                    int x = 0;
+                                    for (int i2 = 0; i2 < parameters.length; i2++) {
+                                        //有注解的
+                                        Parameter parameter = parameters[i2];
+                                        //暂时只认为存在一个NettyRequestBody注解
+                                        if(parameter.isAnnotationPresent(NettyRequestBody.class)){
+                                            //如果有NettyRequestBody那么有且只有一个参数
+                                            if(parameters.length > 1){
+                                                ctx.writeAndFlush(ErrorCodeResponse.systemError());
+                                                throw new NettyRequestBodyException("MethodParam");
                                             }
+                                            boolean required = parameter.getAnnotation(NettyRequestBody.class).required();
+                                            if(required){
+                                                if(bindParams == null){
+                                                    ctx.writeAndFlush(ErrorCodeResponse.BadRequest());
+                                                    return;
+                                                }
+                                            }
+                                            String s = JSONObject.toJSONString(bindParams);
+                                            bindParams = JSONObject.parseObject(s, parameter.getType());
+                                            x++;
                                         }
-                                        if (x > 1) {
-                                            ctx.writeAndFlush(ErrorCodeResponse.systemError());
-                                            throw new NettyRequestBodyException("NettyRequestBodyAnnotation");
-                                        }
-                                        method.setAccessible(true);
-                                        Object invoke =  method.invoke(method.getDeclaringClass().newInstance(),bindParams);
+                                    }
+                                    if (x > 1) {
+                                        ctx.writeAndFlush(ErrorCodeResponse.systemError());
+                                        throw new NettyRequestBodyException("NettyRequestBodyAnnotation");
+                                    }
+                                    method.setAccessible(true);
+                                    Object invoke =  method.invoke(method.getDeclaringClass().newInstance(),bindParams);
+                                    if(invoke != null){
                                         logger.info("返回值：{}",JSON.toJSONString(invoke));
                                         FullHttpResponse fullHttpResponse = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, Unpooled.wrappedBuffer(
                                                 JSON.toJSONString(invoke).getBytes("utf-8")
@@ -95,32 +100,32 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object>{
                                         fullHttpResponse.headers().set("Content-Length", fullHttpResponse.content().readableBytes());
                                         fullHttpResponse.headers().set("Connection", "keep-alive");
                                         ctx.writeAndFlush(fullHttpResponse);
-                                        logger.info("本次请求耗时：{} 毫秒",(System.currentTimeMillis() - startTime));
+                                    }else{
+                                        ctx.writeAndFlush(ErrorCodeResponse.systemError());
                                         return;
                                     }
+                                    logger.info("本次请求耗时：{} 毫秒",(System.currentTimeMillis() - startTime));
+                                    return;
                                 }
-                                //该方法不支持这种请求方式
-                                FullHttpResponse fullHttpResponse = ErrorCodeResponse.requestMethodError(full.method().name().toUpperCase());
-                                ctx.writeAndFlush(fullHttpResponse);
-                                return;
                             }
+                            //该方法不支持这种请求方式
+                            FullHttpResponse fullHttpResponse = ErrorCodeResponse.requestMethodError(full.method().name().toUpperCase());
+                            ctx.writeAndFlush(fullHttpResponse);
+                            return;
                         }
                     }
+
                 }
             }
+            //找不到这个请求路径
             FullHttpResponse fullHttpResponse = ErrorCodeResponse.requestUrlUnknown(reqUrl);
             ctx.writeAndFlush(fullHttpResponse);
-
-
-
 //
         }
 
     }
 
-    public boolean urlFilter(String uri){
-        return true;
-    }
+
 
     /**
      * 参数格式化
@@ -196,7 +201,10 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object>{
                             }
                         }
                     }
-                }else{
+                }else if(ctype.startsWith("multipart/form-data")){
+                    return params;
+                }
+                else{
                     return  ErrorCodeResponse.requestTypeError(ctype);
                 }
                 return params;

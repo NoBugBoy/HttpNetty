@@ -4,7 +4,6 @@ import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.ibatis.datasource.DataSourceFactory;
 
 import javax.sql.DataSource;
-import java.io.FileInputStream;
 import java.sql.SQLException;
 import java.util.Properties;
 
@@ -26,6 +25,11 @@ public class DruidDataSourceFactory implements DataSourceFactory {
     @Override
     public DataSource getDataSource() {
         DruidDataSource druidDataSource = new DruidDataSource();
+        try {
+            druidDataSource.setFilters("stat");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         druidDataSource.setDefaultAutoCommit(true);
         druidDataSource.setDriverClassName(this.props.getProperty("driver"));
         druidDataSource.setUrl(this.props.getProperty("url"));
