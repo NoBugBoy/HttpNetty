@@ -95,7 +95,18 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object>{
                                         throw new NettyRequestBodyException("NettyRequestBodyAnnotation");
                                     }
                                     method.setAccessible(true);
-                                    Object invoke =  method.invoke(controller.newInstance(),bindParams);
+                                    Object invoke = null;
+                                    if(parameters.length == 0){
+                                        invoke =  method.invoke(controller.newInstance());
+                                    }else{
+                                        try{
+                                            invoke =  method.invoke(controller.newInstance(),bindParams);
+                                        }catch (IllegalArgumentException e){
+                                            ctx.writeAndFlush(ErrorCodeResponse.BadRequest());
+                                            break;
+                                        }
+                                    }
+
                                     if(invoke != null){
                                         logger.info("返回值：{}",JSON.toJSONString(invoke));
                                         FullHttpResponse fullHttpResponse = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, Unpooled.wrappedBuffer(

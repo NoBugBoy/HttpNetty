@@ -6,6 +6,8 @@ import io.netty.handler.codec.http.DefaultFullHttpResponse;
 import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.HttpVersion;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -18,6 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * 自定义异常返回
  */
 public class ErrorCodeResponse {
+    private  static  final Logger logger = LoggerFactory.getLogger(ErrorCodeResponse.class);
     protected static Map<String,String> httpResponse = new ConcurrentHashMap<>(2);
     public static FullHttpResponse requestMethodError(String method){
         synchronized (httpResponse){
@@ -72,6 +75,7 @@ public class ErrorCodeResponse {
         fullHttpResponse.headers().set("Content-Type", "application/json;charset=UTF-8");
         fullHttpResponse.headers().set("Content-Length", fullHttpResponse.content().readableBytes());
         fullHttpResponse.headers().set("Connection", "keep-alive");
+        logger.info("返回值：{}",JSON.toJSONString(httpResponse));
         return fullHttpResponse;
     }
 }

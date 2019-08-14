@@ -18,8 +18,15 @@ public class Controller {
     {
         userService = ServiceInjector.getService(UserService.class);
     }
+    @NettyRequestMapping(value = "/find",method = NettyRequestMethod.POST)
+    public ResponseData findUser(){
+        long random =  (long)(Math.random()*999)+1;
+        TUser userById = userService.findUserById((int) random);
+        ResponseData responseData = new ResponseData(userById);
+        return responseData;
+    }
     @NettyRequestMapping(value = "/add",method =  {NettyRequestMethod.POST})
-    public ResponseData findUser(@NettyRequestBody TUser user){
+    public ResponseData addUser(@NettyRequestBody TUser user){
 //            if(Cache.cache.get(user.getFid())==null){
 //                Fuser userById = userService.findUserById(Long.valueOf(user.getFid()));
 //                Cache.cache.put(user.getFid(),userById);
@@ -30,7 +37,7 @@ public class Controller {
         TUser tUser = new TUser();
         long random =  (long)(Math.random()*999)+1;
         tUser.setUsername(String.valueOf(random));
-            userService.save(tUser);
+        userService.save(tUser);
 
         return new ResponseData();
 

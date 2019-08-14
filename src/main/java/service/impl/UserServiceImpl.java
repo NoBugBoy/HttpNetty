@@ -18,4 +18,16 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public TUser findUserById(Integer id) {
+        try(SqlSession sqlSession= SqlSessionUtils.openTransaction()) {
+            TUserMapper mapper = sqlSession.getMapper(TUserMapper.class);
+            TUser tUser = mapper.selectByPrimaryKey(id);
+            return tUser;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
