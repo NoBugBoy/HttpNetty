@@ -13,7 +13,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * json response
+ * @author yujian
+ * @email 754369677@qq.com
+ * 自定义异常返回
  */
 public class ErrorCodeResponse {
     protected static Map<String,String> httpResponse = new ConcurrentHashMap<>(2);

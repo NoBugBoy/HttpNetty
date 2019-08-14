@@ -6,31 +6,23 @@ import org.apache.ibatis.datasource.DataSourceFactory;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.Properties;
-
+/**
+ * @author yujian
+ * @email 754369677@qq.com
+ * 数据库连接池配置
+ */
 public class DruidDataSourceFactory implements DataSourceFactory {
     private Properties props;
     @Override
     public void setProperties(Properties properties) {
         props = properties;
-        //        try {
-//            Properties pp = new Properties();
-//            pp.load(new FileInputStream("src/main/resources/netty.properties"));
-//            this.props = pp;
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
 
     }
 
     @Override
     public DataSource getDataSource() {
         DruidDataSource druidDataSource = new DruidDataSource();
-        try {
-            druidDataSource.setFilters("stat");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        druidDataSource.setDefaultAutoCommit(true);
+        druidDataSource.setDefaultAutoCommit(false);
         druidDataSource.setDriverClassName(this.props.getProperty("driver"));
         druidDataSource.setUrl(this.props.getProperty("url"));
         druidDataSource.setUsername(this.props.getProperty("username"));

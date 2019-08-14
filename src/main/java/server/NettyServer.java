@@ -1,6 +1,9 @@
 package server;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.AdaptiveRecvByteBufAllocator;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
@@ -15,27 +18,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import server.anno.NettyRestController;
 import server.utils.GlobalController;
+import server.utils.ServiceInjector;
 import server.utils.SqlSessionUtils;
 
 import java.io.FileInputStream;
 import java.io.Reader;
 import java.util.Properties;
 import java.util.Set;
-
+/**
+ * @author yujian
+ * @email 754369677@qq.com
+ * 入口类，初始化组件
+ */
 public class NettyServer {
     protected final Logger logger = LoggerFactory.getLogger(NettyServer.class);
     public static void main(String[] args) {
         Properties properties = new Properties();
         try {
             properties.load(new FileInputStream("src/main/resources/netty.properties"));
-//            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-//                try{
-//                    ConnUtils.close();
-//                    System.out.println("尝试关闭连接，当前连接状态:" + ConnUtils.getConn().isClosed());
-//                }catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }));
             new NettyServer(Integer.valueOf(properties.getProperty(Constance.SERVER_PORT))).start(properties);
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,7 +55,6 @@ public class NettyServer {
         EventLoopGroup workGroup = new NioEventLoopGroup();
         logger.info("运行端口："+port);
         logger.info("初始化数据源连接..");
-
         Reader resourceAsReader = Resources.getResourceAsReader("MyBatisConfigure.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsReader);
         SqlSessionUtils.bindSqlSessionFactory(sqlSessionFactory);
@@ -68,15 +67,15 @@ public class NettyServer {
             GlobalController.putInstanceMethods(controller,controller.getDeclaredMethods());
         }
         logger.info("初始化控制器方法完成..");
+        logger.info("初始化注入器");
+        Injector injector = Guice.createInjector(new GModel());
+        ServiceInjector.bindInjector(injector);
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
             serverBootstrap.group(bossGroup,workGroup)
                     .channel(NioServerSocketChannel.class)
-                    .childHandler(new NioWebSocketChannelInit())
-                    .option(ChannelOption.SO_BACKLOG,128)
-                    .option(ChannelOption.RCVBUF_ALLOCATOR,new AdaptiveRecvByteBufAllocator(512, 1024, 2048))
-                    .childOption(ChannelOption.TCP_NODELAY,true)
-                    .childOption(ChannelOption.SO_KEEPALIVE,true).option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10 * 1000);
+                    .childOption(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
+                    .childHandler(new NioWebSocketChannelInit());
             ChannelFuture f = serverBootstrap.bind(port).sync();
             f.channel().closeFuture().sync();
         }catch (Exception ex){

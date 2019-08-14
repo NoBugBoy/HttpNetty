@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import server.anno.NettyRequestBody;
 import server.anno.NettyRequestMapping;
 import server.anno.NettyRestController;
-import server.error.NettyRequestBodyException;
+import server.exception.NettyRequestBodyException;
 import server.utils.GlobalController;
 
 import java.lang.reflect.Method;
@@ -19,11 +19,16 @@ import java.lang.reflect.Parameter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
+/**
+ * @author yujian
+ * @email 754369677@qq.com
+ * 核心处理器，负责整个Http请求的流程，分发，响应
+ */
 public class HttpHandler extends SimpleChannelInboundHandler<Object>{
     protected final Logger logger = org.slf4j.LoggerFactory.getLogger(HttpHandler.class);
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Object request) throws Exception {
+
         if(request instanceof  FullHttpRequest){
             long startTime = System.currentTimeMillis();
             FullHttpRequest full = (FullHttpRequest) request;
@@ -90,7 +95,7 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object>{
                                         throw new NettyRequestBodyException("NettyRequestBodyAnnotation");
                                     }
                                     method.setAccessible(true);
-                                    Object invoke =  method.invoke(method.getDeclaringClass().newInstance(),bindParams);
+                                    Object invoke =  method.invoke(controller.newInstance(),bindParams);
                                     if(invoke != null){
                                         logger.info("返回值：{}",JSON.toJSONString(invoke));
                                         FullHttpResponse fullHttpResponse = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, Unpooled.wrappedBuffer(
@@ -160,7 +165,7 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object>{
                             params.put(split1[0],split1[1]);
                         }
                     }else{
-                        if(uri.indexOf("=")>0){
+                        if(uri.indexOf("=") > 0){
                             params.put(uri.split("=")[0],uri.split("=")[1]);
                         }else{
                             System.out.println(request.uri()+"无任何参数！");
@@ -220,5 +225,10 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object>{
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         System.out.println(cause);
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        super.channelInactive(ctx);
     }
 }

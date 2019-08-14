@@ -15,6 +15,11 @@ import java.nio.channels.FileChannel;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author yujian
+ * @email 754369677@qq.com
+ * 只负责文件上传
+ */
 public class FileUpLoadHandler extends SimpleChannelInboundHandler<HttpObject> {
     private static final HttpDataFactory factory = new DefaultHttpDataFactory(true);
     private HttpPostRequestDecoder httpDecoder;

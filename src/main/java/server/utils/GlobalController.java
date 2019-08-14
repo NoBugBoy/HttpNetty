@@ -5,7 +5,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-
+/**
+ * @author yujian
+ * @email 754369677@qq.com
+ * 初始化反射ControllerAndMethods缓冲池
+ */
 public class GlobalController {
 
     private static Set<Class<?>> instance = new HashSet<>();

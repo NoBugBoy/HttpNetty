@@ -1,5 +1,9 @@
 package server;
-
+/**
+ * @author yujian
+ * @email 754369677@qq.com
+ * 基础常量
+ */
 public class Constance {
     public static final String GET = "GET";
     public static final String POST = "POST";

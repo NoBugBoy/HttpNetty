@@ -1,34 +1,42 @@
 package controller;
 
-import org.apache.ibatis.session.SqlSession;
+import com.google.inject.Singleton;
 import server.NettyRequestMethod;
 import server.anno.NettyRequestBody;
 import server.anno.NettyRequestMapping;
 import server.anno.NettyRestController;
-import server.database.entity.Fuser;
-import server.database.mapper.FuserMapper;
-import server.utils.SqlSessionUtils;
+import server.database.entity.TUser;
+import server.utils.ResponseData;
+import server.utils.ServiceInjector;
+import service.UserService;
 
-@NettyRestController(value = "/file")
+@Singleton
+@NettyRestController(value = "/user")
 public class Controller {
-    @NettyRequestMapping(value = "/add",method =  {NettyRequestMethod.POST})
-    public Fuser findUser(@NettyRequestBody() Fuser user){
-        try(SqlSession session = SqlSessionUtils.openTransaction()){
-            FuserMapper mapper = session.getMapper(FuserMapper.class);
-            Fuser fuser1 = mapper.selectByPrimaryKey(2);
-            fuser1.setFid(null);
-            fuser1.setFloginname(user.getFloginname());
-            int insert = mapper.insert(fuser1);
-            System.out.println(insert);
-            session.commit();
-            // int x = 2/0;
-            return fuser1;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
+    //需要注入的service
+    private UserService userService;
+    {
+        userService = ServiceInjector.getService(UserService.class);
     }
-    @NettyRequestMapping(value = "/upload",method =  {NettyRequestMethod.POST})
+    @NettyRequestMapping(value = "/add",method =  {NettyRequestMethod.POST})
+    public ResponseData findUser(@NettyRequestBody TUser user){
+//            if(Cache.cache.get(user.getFid())==null){
+//                Fuser userById = userService.findUserById(Long.valueOf(user.getFid()));
+//                Cache.cache.put(user.getFid(),userById);
+//                return userById;
+//            }else{
+//                return Cache.cache.get(user.getFid());
+        //}
+        TUser tUser = new TUser();
+        long random =  (long)(Math.random()*999)+1;
+        tUser.setUsername(String.valueOf(random));
+            userService.save(tUser);
+
+        return new ResponseData();
+
+    }
+    //只有这个路径才是上传文件和@NettyRestController上的路径无关
+    @NettyRequestMapping(value = "/file/upload",method =  {NettyRequestMethod.POST})
     public String upload(){
         return "";
     }
