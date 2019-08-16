@@ -4,7 +4,7 @@ package server;
  * @email 754369677@qq.com
  * 基础常量
  */
-public class Constance {
+public class Constances {
     public static final String GET = "GET";
     public static final String POST = "POST";
     public static final String DELETE = "DELETE";

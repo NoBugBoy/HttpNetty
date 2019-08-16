@@ -36,7 +36,7 @@ public class NettyServer {
         Properties properties = new Properties();
         try {
             properties.load(new FileInputStream("src/main/resources/netty.properties"));
-            new NettyServer(Integer.valueOf(properties.getProperty(Constance.SERVER_PORT))).start(properties);
+            new NettyServer(Integer.valueOf(properties.getProperty(Constances.SERVER_PORT))).start(properties);
         } catch (Exception e) {
             e.printStackTrace();
         }

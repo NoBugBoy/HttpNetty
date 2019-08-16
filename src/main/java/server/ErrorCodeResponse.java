@@ -63,7 +63,7 @@ public class ErrorCodeResponse {
      * @param map
      * @return
      */
-    protected static FullHttpResponse baseResponse(Map map,Integer code){
+    protected static FullHttpResponse baseResponse(Map<String,String> map,Integer code){
         FullHttpResponse fullHttpResponse = null;
         try {
             fullHttpResponse = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.valueOf(code), Unpooled.wrappedBuffer(

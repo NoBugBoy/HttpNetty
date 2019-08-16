@@ -21,10 +21,9 @@ public class Controller {
     }
 
     @NettyRequestMapping(value = "/findByid",method = NettyRequestMethod.GET)
-    public ResponseData findById(@NettyRequestParam("id") Integer id){
+    public ResponseData findById(@NettyRequestParam(value = "id") Integer id,@NettyRequestParam(value = "name",required = false) String name){
 
         TUser userById = userService.findUserById(id);
-
         ResponseData responseData = new ResponseData(userById);
         return responseData;
     }

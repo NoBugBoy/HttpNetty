@@ -7,4 +7,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NettyRequestParam {
     String value();
+    boolean required() default true;
+    String defaultValue() default "";
 }

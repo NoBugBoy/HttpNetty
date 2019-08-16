@@ -57,7 +57,7 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object>{
                         NettyRequestMapping annotation = method.getAnnotation(NettyRequestMapping.class);
                         if(reqUrl.equals(prefix+annotation.value())){
                             logger.info("请求路径：{} , 请求方式:{}",prefix+annotation.value(),full.method().name());
-                            if("/file/upload".equals(annotation.value()) && Constance.POST.equals(full.method().name())){
+                            if("/file/upload".equals(annotation.value()) && Constances.POST.equals(full.method().name())){
                                 ctx.fireChannelRead(request);
                                 return;
                             }
@@ -91,11 +91,28 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object>{
                                             bindParams = JSONObject.parseObject(s, parameter.getType());
                                             x++;
                                         }
-                                        if(parameter.isAnnotationPresent(NettyRequestParam.class)){
-                                            Map<String,Object> map =  (Map)bindParams;
-                                            Object obj = map.get(parameter.getAnnotation(NettyRequestParam.class).value());
-                                            Object cast = castType(obj, parameter.getType());
-                                            getParams.add(cast);
+                                        if("GET".equals(full.method().name().toUpperCase())){
+                                            if(parameter.isAnnotationPresent(NettyRequestParam.class)){
+                                                Map<String,Object> map =  (Map)bindParams;
+                                                Object obj = map.get(parameter.getAnnotation(NettyRequestParam.class).value());
+                                                boolean required = parameter.getAnnotation(NettyRequestParam.class).required();
+                                                if(required && obj == null){
+                                                    ctx.writeAndFlush(ErrorCodeResponse.BadRequest());
+                                                    return;
+                                                }else{
+                                                    if("java.lang.String".equals(parameter.getType().getTypeName())){
+                                                        getParams.add(obj);
+                                                    }else{
+                                                        Object cast = castType(obj, parameter.getType());
+                                                        getParams.add(cast);
+                                                    }
+                                                }
+                                            }else{
+                                                ctx.writeAndFlush(ErrorCodeResponse.BadRequest());
+                                                return;
+                                            }
+
+
                                         }
                                     }
                                     if (x > 1) {
@@ -108,10 +125,8 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object>{
                                         invoke =  method.invoke(controller.newInstance());
                                     }else{
                                         if(getParams.size() > 0){
-                                            //todo 这他妈怎么传啊.. 给个固定的算了 超过5个参数就报错 NN的
-//                                            Object[] objects = getParams.toArray();
-//                                            method.invoke(controller.newInstance(),objects);
-                                            invoke = invoke(method, controller, getParams);
+                                            Object[] objects = getParams.toArray();
+                                            invoke = method.invoke(controller.newInstance(),objects);
                                         }else{
                                             try{
                                                 invoke =  method.invoke(controller.newInstance(),bindParams);
@@ -155,16 +170,6 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object>{
         }
 
     }
-    private static  Object invoke(Method method,Class<?> clazz,List<Object> params) throws Exception{
-        switch (params.size()){
-            case 1: return method.invoke(clazz.newInstance(),params.get(0));
-            case 2: return method.invoke(clazz.newInstance(),params.get(0),params.get(1));
-            case 3: return method.invoke(clazz.newInstance(),params.get(0),params.get(1),params.get(2));
-            case 4: return method.invoke(clazz.newInstance(),params.get(0),params.get(1),params.get(2),params.get(3));
-            case 5: return method.invoke(clazz.newInstance(),params.get(0),params.get(1),params.get(2),params.get(3),params.get(4));
-            default:return null;
-        }
-    }
     /**
      * 参数类型转换
      * @author yujian
@@ -175,6 +180,9 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object>{
      */
     public static <T> Object castType(Object obj,Class<T> clazz){
         try {
+            if(obj == null){
+                return obj;
+            }
             Method valueOf = clazz.getMethod("valueOf",String.class);
             Object result = valueOf.invoke(null,String.valueOf(obj));
             return result;
@@ -189,18 +197,19 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object>{
     }
     /**
      * 参数格式化
+     * @author yujian
      * @param request
      * @return
      */
     public Object paramFilter(FullHttpRequest request) {
         HttpMethod method = request.method();
         String body = request.content().toString(Charsets.UTF_8);
-        if(Constance.POST.equals(method.name().toUpperCase())&&( body == null || "".endsWith(body))){
+        if(Constances.POST.equals(method.name().toUpperCase())&&( body == null || "".endsWith(body))){
             return null;
         }
         Map<String,Object> params = new HashMap<>();
         switch (method.name().toUpperCase()){
-            case Constance.GET :
+            case Constances.GET :
                 if(request.uri().indexOf("?")<=0){
                     return params;
                 }
@@ -228,9 +237,9 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object>{
                     }
                 }
                 return  params;
-            case Constance.POST :
-            case Constance.PUT  :
-            case Constance.DELETE:
+            case Constances.POST :
+            case Constances.PUT  :
+            case Constances.DELETE:
                 String ctype = request.headers().get("Content-Type");
                 if("application/json".equals(ctype)){
                     JSONObject jsonObject = JSON.parseObject(body);
