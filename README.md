@@ -9,7 +9,7 @@ application/x-www-form-urlencoded
  
  非GET方式请求必须以对象作为参数，并且用@NettyRequestBody注解修饰，否则400
  
- 使用前请删除database下的entity和mapper，使用Maven逆向工具生成自己的数据库表
+ 使用前请删除database下的entity和mapper内的文件，使用Maven逆向工具生成自己的数据库表
  
  未经过大量测试，练手为主，可能会有些许bug请见谅
 # 喜欢的话帮忙点个Star谢谢啦
