@@ -10,8 +10,8 @@ import service.UserService;
 public class UserServiceImpl implements UserService {
 
     @Override
-    public  synchronized void save(TUser tUser) {
-        try(SqlSession sqlSession= SqlSessionUtils.openTransactionAutoCommit()) {
+    public   void save(TUser tUser) {
+        try(SqlSession sqlSession= SqlSessionUtils.openTransaction()) {
             TUserMapper mapper = sqlSession.getMapper(TUserMapper.class);
             mapper.insert(tUser);
         }catch (Exception e){
@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public TUser findUserById(Integer id) {
-        try(SqlSession sqlSession= SqlSessionUtils.openTransaction()) {
+        try(SqlSession sqlSession= SqlSessionUtils.openQuery()) {
             TUserMapper mapper = sqlSession.getMapper(TUserMapper.class);
             TUser tUser = mapper.selectByPrimaryKey(id);
             return tUser;

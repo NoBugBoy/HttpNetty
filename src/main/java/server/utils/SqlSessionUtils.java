@@ -13,11 +13,12 @@ public class SqlSessionUtils {
     public static void bindSqlSessionFactory(SqlSessionFactory session){
         sqlSessionFactory =session;
     }
-    public static SqlSession openTransaction(){
+    public static SqlSession openQuery(){
         SqlSession sqlSession = sqlSessionFactory.openSession();
         return sqlSession;
     }
-    public static SqlSession openTransactionAutoCommit(){
+    //增删改
+    public static SqlSession openTransaction(){
         SqlSession sqlSession = sqlSessionFactory.openSession(true);
         return sqlSession;
     }

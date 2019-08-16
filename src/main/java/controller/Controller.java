@@ -4,6 +4,7 @@ import com.google.inject.Singleton;
 import server.NettyRequestMethod;
 import server.anno.NettyRequestBody;
 import server.anno.NettyRequestMapping;
+import server.anno.NettyRequestParam;
 import server.anno.NettyRestController;
 import server.database.entity.TUser;
 import server.utils.ResponseData;
@@ -18,10 +19,21 @@ public class Controller {
     {
         userService = ServiceInjector.getService(UserService.class);
     }
+
+    @NettyRequestMapping(value = "/findByid",method = NettyRequestMethod.GET)
+    public ResponseData findById(@NettyRequestParam("id") Integer id){
+
+        TUser userById = userService.findUserById(id);
+
+        ResponseData responseData = new ResponseData(userById);
+        return responseData;
+    }
+
     @NettyRequestMapping(value = "/find",method = NettyRequestMethod.POST)
     public ResponseData findUser(){
         long random =  (long)(Math.random()*999)+1;
         TUser userById = userService.findUserById((int) random);
+
         ResponseData responseData = new ResponseData(userById);
         return responseData;
     }

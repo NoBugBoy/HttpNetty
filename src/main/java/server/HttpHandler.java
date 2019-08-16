@@ -10,15 +10,16 @@ import io.netty.handler.codec.http.*;
 import org.slf4j.Logger;
 import server.anno.NettyRequestBody;
 import server.anno.NettyRequestMapping;
+import server.anno.NettyRequestParam;
 import server.anno.NettyRestController;
 import server.exception.NettyRequestBodyException;
 import server.utils.GlobalController;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+
 /**
  * @author yujian
  * @email 754369677@qq.com
@@ -56,7 +57,7 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object>{
                         NettyRequestMapping annotation = method.getAnnotation(NettyRequestMapping.class);
                         if(reqUrl.equals(prefix+annotation.value())){
                             logger.info("请求路径：{} , 请求方式:{}",prefix+annotation.value(),full.method().name());
-                            if("/file/upload".equals(annotation.value())){
+                            if("/file/upload".equals(annotation.value()) && Constance.POST.equals(full.method().name())){
                                 ctx.fireChannelRead(request);
                                 return;
                             }
@@ -66,6 +67,7 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object>{
                             for (int i = 0; i < length; i++) {
                                 if(full.method().name().toUpperCase()==annotation.method()[i].name()){
                                     Parameter[] parameters = method.getParameters();
+                                    List<Object> getParams = new ArrayList<>(parameters.length);
                                     //参数个数 x如果大于1抛出异常
                                     int x = 0;
                                     for (int i2 = 0; i2 < parameters.length; i2++) {
@@ -89,21 +91,34 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object>{
                                             bindParams = JSONObject.parseObject(s, parameter.getType());
                                             x++;
                                         }
+                                        if(parameter.isAnnotationPresent(NettyRequestParam.class)){
+                                            Map<String,Object> map =  (Map)bindParams;
+                                            Object obj = map.get(parameter.getAnnotation(NettyRequestParam.class).value());
+                                            Object cast = castType(obj, parameter.getType());
+                                            getParams.add(cast);
+                                        }
                                     }
                                     if (x > 1) {
                                         ctx.writeAndFlush(ErrorCodeResponse.systemError());
                                         throw new NettyRequestBodyException("NettyRequestBodyAnnotation");
                                     }
                                     method.setAccessible(true);
-                                    Object invoke = null;
+                                    Object invoke ;
                                     if(parameters.length == 0){
                                         invoke =  method.invoke(controller.newInstance());
                                     }else{
-                                        try{
-                                            invoke =  method.invoke(controller.newInstance(),bindParams);
-                                        }catch (IllegalArgumentException e){
-                                            ctx.writeAndFlush(ErrorCodeResponse.BadRequest());
-                                            break;
+                                        if(getParams.size() > 0){
+                                            //todo 这他妈怎么传啊.. 给个固定的算了 超过5个参数就报错 NN的
+//                                            Object[] objects = getParams.toArray();
+//                                            method.invoke(controller.newInstance(),objects);
+                                            invoke = invoke(method, controller, getParams);
+                                        }else{
+                                            try{
+                                                invoke =  method.invoke(controller.newInstance(),bindParams);
+                                            }catch (IllegalArgumentException e){
+                                                ctx.writeAndFlush(ErrorCodeResponse.BadRequest());
+                                                break;
+                                            }
                                         }
                                     }
 
@@ -140,9 +155,38 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object>{
         }
 
     }
-
-
-
+    private static  Object invoke(Method method,Class<?> clazz,List<Object> params) throws Exception{
+        switch (params.size()){
+            case 1: return method.invoke(clazz.newInstance(),params.get(0));
+            case 2: return method.invoke(clazz.newInstance(),params.get(0),params.get(1));
+            case 3: return method.invoke(clazz.newInstance(),params.get(0),params.get(1),params.get(2));
+            case 4: return method.invoke(clazz.newInstance(),params.get(0),params.get(1),params.get(2),params.get(3));
+            case 5: return method.invoke(clazz.newInstance(),params.get(0),params.get(1),params.get(2),params.get(3),params.get(4));
+            default:return null;
+        }
+    }
+    /**
+     * 参数类型转换
+     * @author yujian
+     * @param obj 转换之前的参数
+     * @param clazz 参数类型
+     * @param <T> 返回类型
+     * @return T
+     */
+    public static <T> Object castType(Object obj,Class<T> clazz){
+        try {
+            Method valueOf = clazz.getMethod("valueOf",String.class);
+            Object result = valueOf.invoke(null,String.valueOf(obj));
+            return result;
+        }  catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
     /**
      * 参数格式化
      * @param request
@@ -154,7 +198,7 @@ public class HttpHandler extends SimpleChannelInboundHandler<Object>{
         if(Constance.POST.equals(method.name().toUpperCase())&&( body == null || "".endsWith(body))){
             return null;
         }
-        Map<String,String> params = new HashMap<>();
+        Map<String,Object> params = new HashMap<>();
         switch (method.name().toUpperCase()){
             case Constance.GET :
                 if(request.uri().indexOf("?")<=0){
