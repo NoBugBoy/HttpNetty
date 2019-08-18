@@ -2,8 +2,8 @@ package service.impl;
 
 import com.google.inject.Singleton;
 import org.apache.ibatis.session.SqlSession;
-import server.database.entity.TUser;
-import server.database.mapper.TUserMapper;
+import database.entity.TUser;
+import database.mapper.TUserMapper;
 import server.utils.SqlSessionUtils;
 import service.UserService;
 @Singleton

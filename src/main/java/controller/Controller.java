@@ -6,7 +6,7 @@ import server.anno.NettyRequestBody;
 import server.anno.NettyRequestMapping;
 import server.anno.NettyRequestParam;
 import server.anno.NettyRestController;
-import server.database.entity.TUser;
+import database.entity.TUser;
 import server.utils.ResponseData;
 import server.utils.ServiceInjector;
 import service.UserService;
@@ -22,7 +22,6 @@ public class Controller {
 
     @NettyRequestMapping(value = "/findByid",method = NettyRequestMethod.GET)
     public ResponseData findById(@NettyRequestParam(value = "id") Integer id,@NettyRequestParam(value = "name",required = false) String name){
-
         TUser userById = userService.findUserById(id);
         ResponseData responseData = new ResponseData(userById);
         return responseData;
@@ -38,18 +37,7 @@ public class Controller {
     }
     @NettyRequestMapping(value = "/add",method =  {NettyRequestMethod.POST})
     public ResponseData addUser(@NettyRequestBody TUser user){
-//            if(Cache.cache.get(user.getFid())==null){
-//                Fuser userById = userService.findUserById(Long.valueOf(user.getFid()));
-//                Cache.cache.put(user.getFid(),userById);
-//                return userById;
-//            }else{
-//                return Cache.cache.get(user.getFid());
-        //}
-        TUser tUser = new TUser();
-        long random =  (long)(Math.random()*999)+1;
-        tUser.setUsername(String.valueOf(random));
-        userService.save(tUser);
-
+        userService.save(user);
         return new ResponseData();
 
     }
