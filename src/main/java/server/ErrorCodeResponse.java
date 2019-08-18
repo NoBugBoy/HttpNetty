@@ -21,41 +21,36 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class ErrorCodeResponse {
     private  static  final Logger logger = LoggerFactory.getLogger(ErrorCodeResponse.class);
-    protected static Map<String,String> httpResponse = new ConcurrentHashMap<>(2);
+    protected static final Map<String,String> httpResponse = new ConcurrentHashMap<>(2);
     public static FullHttpResponse requestMethodError(String method){
-        synchronized (httpResponse){
             httpResponse.put("error","Request method '"+method+"' not supported");
             httpResponse.put("code","405");
             return baseResponse(httpResponse,405);
-        }
+
     }
     public static FullHttpResponse BadRequest(){
-        synchronized (httpResponse){
             httpResponse.put("error","Bad Request");
             httpResponse.put("code","400");
             return baseResponse(httpResponse,400);
-        }
+
     }
     public static FullHttpResponse systemError(){
-        synchronized (httpResponse){
             httpResponse.put("error","System Error");
             httpResponse.put("code","500");
             return baseResponse(httpResponse,500);
-        }
+
     }
     public static FullHttpResponse requestTypeError(String type){
-        synchronized (httpResponse){
             httpResponse.put("error","Request Content-Type '"+type+"' not supported");
             httpResponse.put("code","490");
             return baseResponse(httpResponse,490);
-        }
+
     }
     public static FullHttpResponse requestUrlUnknown(String url){
-        synchronized (httpResponse){
             httpResponse.put("error","Request Url '"+url+"' not supported");
             httpResponse.put("code","404");
             return baseResponse(httpResponse,404);
-        }
+
     }
 
     /**
