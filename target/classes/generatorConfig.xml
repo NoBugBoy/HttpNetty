@@ -7,25 +7,24 @@
     <!--mysql 连接数据库jar 这里选择自己本地位置-->
     <classPathEntry location="C:\Users\yujian\.m2\repository\mysql\mysql-connector-java\5.1.45\mysql-connector-java-5.1.45.jar" />
     <context id="MySql" defaultModelType="flat">
-        <!--<commentGenerator>-->
-            <!--&lt;!&ndash; 是否去除自动生成的注释 true：是 ： false:否 &ndash;&gt;-->
-            <!--<property name="suppressAllComments" value="true" />-->
-        <!--</commentGenerator>-->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
         <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://localhost:3306/db_ebook" userId="root"
                         password="asdfg00000">
         </jdbcConnection>
 
-        <javaModelGenerator targetPackage="server.database.entity"
+        <javaModelGenerator targetPackage="database.entity"
                             targetProject="src/main/java">
 
         </javaModelGenerator>
-        <sqlMapGenerator targetPackage="server.database.mapper"
+        <sqlMapGenerator targetPackage="database.mapper"
                          targetProject="src/main/java">
         </sqlMapGenerator>
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="server.database.mapper"
+                             targetPackage="database.mapper"
                              targetProject="src/main/java">
 
         </javaClientGenerator>

@@ -7,9 +7,6 @@
     <!--mysql 连接数据库jar 这里选择自己本地位置-->
     <classPathEntry location="C:\Users\yujian\.m2\repository\mysql\mysql-connector-java\5.1.45\mysql-connector-java-5.1.45.jar" />
     <context id="MySql" defaultModelType="flat">
-        <commentGenerator>
-            <property name="suppressAllComments" value="true" />
-        </commentGenerator>
         <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://localhost:3306/db_ebook" userId="root"

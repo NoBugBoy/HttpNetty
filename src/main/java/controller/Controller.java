@@ -1,12 +1,12 @@
 package controller;
 
 import com.google.inject.Singleton;
+import database.entity.TUser;
 import server.NettyRequestMethod;
 import server.anno.NettyRequestBody;
 import server.anno.NettyRequestMapping;
 import server.anno.NettyRequestParam;
 import server.anno.NettyRestController;
-import database.entity.TUser;
 import server.utils.ResponseData;
 import server.utils.ServiceInjector;
 import service.UserService;

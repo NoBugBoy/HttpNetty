@@ -1,9 +1,9 @@
 package service.impl;
 
 import com.google.inject.Singleton;
-import org.apache.ibatis.session.SqlSession;
 import database.entity.TUser;
 import database.mapper.TUserMapper;
+import org.apache.ibatis.session.SqlSession;
 import server.utils.SqlSessionUtils;
 import service.UserService;
 @Singleton
